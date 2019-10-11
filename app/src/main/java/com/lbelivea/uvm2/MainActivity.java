@@ -1,5 +1,6 @@
 package com.lbelivea.uvm2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,15 +21,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
@@ -45,9 +37,18 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(id){
+            case R.id.main:
+                //main screen
+                return true;
+            case R.id.list:
+                //course listing
+                Intent changeToList = new Intent(this, CourseListActivity.class);
+                startActivity(changeToList);
+                return true;
+            case R.id.mylist:
+                //my saved courses
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
