@@ -6,4 +6,6 @@
     <string name="title_course_list">Course List</string>
     <string name="title_my_list">My Courses</string>
     <string name="title_course_detail">Course Detail</string>
+    <string name="action_search">Filter Courses</string>
+    <string name="search_hint">Enter criteria…</string>
 </resources>
