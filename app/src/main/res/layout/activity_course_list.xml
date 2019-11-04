@@ -30,6 +30,4 @@
         <include layout="@layout/course_list" />
     </FrameLayout>
 
-    <include layout="@layout/menu_bottom"/>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
