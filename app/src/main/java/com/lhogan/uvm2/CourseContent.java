@@ -1,5 +1,7 @@
 package com.lhogan.uvm2;
 
+import android.util.Log;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,11 +23,16 @@ public class CourseContent {
     private static final int COUNT = 9;
 
     static {
-        try {
-            scraping();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Log.d("asf", "Async thread starting");
+                    scraping();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private static void addItem(Course course) {
@@ -33,7 +40,7 @@ public class CourseContent {
         COURSE_MAP.put(course.CRN, course);
     }
 
-    private static void scraping() throws Exception{
+    private static void scraping() throws Exception {
         URL url = new URL("https://giraffe.uvm.edu/~rgweb/batch/curr_enroll_spring.txt");
         Scanner sc = new Scanner(url.openStream());
         String[] titles = sc.nextLine().split(",");
@@ -41,21 +48,24 @@ public class CourseContent {
             String currentLine = sc.nextLine();
             currentLine = currentLine.replace("\"", "");
             String current[] = currentLine.split(",");
-            if (titles.length == 17) {
+//            if (titles.length == 17) {
+            Log.d("asdfasdfasdf", "firstcheckpoint");
                 try {
+                    Log.d("heythere", "secondcheckpoint");
                     addItem(new Course(current[0], current[1], current[2], current[3], current[4], current[5], current[6], current[7], current[8], current[9], current[10], current[11], current[12], current[13], current[14] + " " + current[15], current[16], current[17]));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Staff Error");
                 }
-            } else {
-                try {
-                    addItem(new Course(current[0], current[1], current[2], current[3], current[4], current[5], current[6], current[7], current[8], current[9], current[10], current[11], current[12], current[13], current[14], current[15], current[16] + " " + current[17], current[18], current[19]));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Staff Error");
-                }
+//            } else {
+//                try {
+//                    addItem(new Course(current[0], current[1], current[2], current[3], current[4], current[5], current[6], current[7], current[8], current[9], current[10], current[11], current[12], current[13], current[14], current[15], current[16] + " " + current[17], current[18], current[19]));
+//                } catch (ArrayIndexOutOfBoundsException e) {
+//                    System.out.println("Staff Error");
+//                }
 
-            }
+        //    }
         }
+        Log.d("heythere", "made it to the end");
     }
 
     /**
