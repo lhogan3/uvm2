@@ -61,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.main:
                 //main screen
                 break;
+            case R.id.login:
+                //login screen
+                Intent changeToLogin = new Intent(this, LoginActivity.class);
+                startActivity(changeToLogin);
+                break;
             case R.id.list:
                 //course listing
                 Intent changeToList = new Intent(this, CourseListActivity.class);
