@@ -9,9 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +19,8 @@ import androidx.appcompat.app.ActionBar;
 
 import android.view.MenuItem;
 
-import com.lbelivea.uvm2.dummy.DummyContent;
+import com.lhogan.uvm2.CourseContent.Course;
+import com.lhogan.uvm2.*;
 
 import java.util.List;
 
@@ -89,22 +87,22 @@ public class CourseListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, CourseContent.COURSES, mTwoPane));
     }
 
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final CourseListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<CourseContent.Course> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+                 Course course = (Course) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(CourseDetailFragment.ARG_ITEM_ID, item.id);
+                    arguments.putString(CourseDetailFragment.ARG_ITEM_ID, course.CRN);
                     CourseDetailFragment fragment = new CourseDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -113,7 +111,7 @@ public class CourseListActivity extends AppCompatActivity {
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, CourseDetailActivity.class);
-                    intent.putExtra(CourseDetailFragment.ARG_ITEM_ID, item.id);
+                    intent.putExtra(CourseDetailFragment.ARG_ITEM_ID, course.CRN);
 
                     context.startActivity(intent);
                 }
@@ -121,7 +119,7 @@ public class CourseListActivity extends AppCompatActivity {
         };
 
         SimpleItemRecyclerViewAdapter(CourseListActivity parent,
-                                      List<DummyContent.DummyItem> items,
+                                      List<Course> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;
@@ -137,8 +135,8 @@ public class CourseListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            holder.mIdView.setText(mValues.get(position).CRN);
+            holder.mContentView.setText(mValues.get(position).name); // Might have to change this to something else later
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
