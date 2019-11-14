@@ -1,5 +1,6 @@
 package com.lhogan.uvm2;
 
+import com.lbelivea.uvm2.CourseListActivity.SimpleItemRecyclerViewAdapter;
 import android.util.Log;
 
 import java.net.URL;
@@ -8,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
+import static com.lbelivea.uvm2.CourseListActivity.SimpleItemRecyclerViewAdapter.invalidateMyViewBitch;
 
 public class CourseContent {
     /**
@@ -21,13 +24,18 @@ public class CourseContent {
     public static final Map<String, Course> COURSE_MAP = new HashMap<String, Course>();
 
     private static final int COUNT = 9;
-
+    private static void logShit(){
+        Log.d("aaaa","You deserve this");
+    }
     static {
+        addItem(new Course());
         new Thread(new Runnable() {
             public void run() {
                 try {
                     Log.d("asf", "Async thread starting");
                     scraping();
+                    logShit();
+                    invalidateMyViewBitch();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -112,6 +120,10 @@ public class CourseContent {
             this.instructor = instructor;
             this.netID = netID;
             this.email = email;
+        }
+
+        public Course() {
+            // hi there :)
         }
 
         public Course(String subject, String number, String name, String CRN, String section, String lecLab, String campusCode, String collegeCode, String maxEnrollment, String currentEnrollment, String startTime, String endTime, String days, String credits, String instructor, String netID, String email) {

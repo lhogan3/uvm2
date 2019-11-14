@@ -1,4 +1,5 @@
 package com.lbelivea.uvm2;
+import android.util.Log;
 
 import android.content.Context;
 import android.content.Intent;
@@ -87,12 +88,18 @@ public class CourseListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+        SimpleItemRecyclerViewAdapter.parentRecyclerView = recyclerView;
+        SimpleItemRecyclerViewAdapter.parentThis = this;
+        SimpleItemRecyclerViewAdapter.parentMTwoPane = mTwoPane;
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, CourseContent.COURSES, mTwoPane));
     }
 
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
+        public static RecyclerView parentRecyclerView;
+        public static CourseListActivity parentThis;
+        public static boolean parentMTwoPane;
         private final CourseListActivity mParentActivity;
         private final List<CourseContent.Course> mValues;
         private final boolean mTwoPane;
@@ -142,6 +149,11 @@ public class CourseListActivity extends AppCompatActivity {
             holder.itemView.setOnClickListener(mOnClickListener);
         }
 
+        public static void  invalidateMyViewBitch(){
+            parentRecyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(parentThis, CourseContent.COURSES, parentMTwoPane));
+
+            Log.d("eee", "Invalidated");
+        }
         @Override
         public int getItemCount() {
             return mValues.size();
