@@ -1,7 +1,9 @@
 package com.lhogan.uvm2;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +11,38 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import static com.lbelivea.uvm2.CourseListActivity.SimpleItemRecyclerViewAdapter.resetAdapter;
+
+
 public class CourseContent {
+    private static class Scraping extends AsyncTask<Void, Void, CourseContent.Course> {
+        @Override
+        protected CourseContent.Course doInBackground(Void... params) {
+            try {
+                URL url = new URL("https://giraffe.uvm.edu/~rgweb/batch/curr_enroll_spring.txt");
+                Scanner sc = new Scanner(url.openStream());
+                sc.nextLine();
+                while (sc.hasNextLine()) {
+                    String currentLine = sc.nextLine();
+                    currentLine = currentLine.replace("\"", "");
+                    String current[] = currentLine.split(",");
+                    try {
+                        CourseContent.addItem(new CourseContent.Course(current[0], current[1], current[2], current[3], current[4], current[5], current[6], current[7], current[8], current[9], current[10], current[11], current[12], current[13], current[14] + " " + current[15], current[16], current[17]));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        Log.d("ERROR", "Staff Error");
+                    }
+                }
+            } catch (IOException e) {
+                Log.d("ERROR", "doInBackground: IO ERROR");
+            }
+            return new CourseContent.Course();
+        }
+
+        @Override
+        protected void onPostExecute(CourseContent.Course lastCourse) {
+            resetAdapter();
+        }
+    }
     /**
      * An array of sample (dummy) items.
      */
@@ -20,53 +53,16 @@ public class CourseContent {
      */
     public static final Map<String, Course> COURSE_MAP = new HashMap<String, Course>();
 
-    private static final int COUNT = 9;
-
     static {
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Log.d("asf", "Async thread starting");
-                    scraping();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        new Scraping().execute();
     }
 
-    private static void addItem(Course course) {
+    public static void addItem(Course course) {
         COURSES.add(course);
         COURSE_MAP.put(course.CRN, course);
     }
 
-    private static void scraping() throws Exception {
-        URL url = new URL("https://giraffe.uvm.edu/~rgweb/batch/curr_enroll_spring.txt");
-        Scanner sc = new Scanner(url.openStream());
-        String[] titles = sc.nextLine().split(",");
-        while (sc.hasNextLine()) {
-            String currentLine = sc.nextLine();
-            currentLine = currentLine.replace("\"", "");
-            String current[] = currentLine.split(",");
-//            if (titles.length == 17) {
-            Log.d("asdfasdfasdf", "firstcheckpoint");
-                try {
-                    Log.d("heythere", "secondcheckpoint");
-                    addItem(new Course(current[0], current[1], current[2], current[3], current[4], current[5], current[6], current[7], current[8], current[9], current[10], current[11], current[12], current[13], current[14] + " " + current[15], current[16], current[17]));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Staff Error");
-                }
-//            } else {
-//                try {
-//                    addItem(new Course(current[0], current[1], current[2], current[3], current[4], current[5], current[6], current[7], current[8], current[9], current[10], current[11], current[12], current[13], current[14], current[15], current[16] + " " + current[17], current[18], current[19]));
-//                } catch (ArrayIndexOutOfBoundsException e) {
-//                    System.out.println("Staff Error");
-//                }
 
-        //    }
-        }
-        Log.d("heythere", "made it to the end");
-    }
 
     /**
      * A dummy item representing a piece of content.
@@ -112,6 +108,10 @@ public class CourseContent {
             this.instructor = instructor;
             this.netID = netID;
             this.email = email;
+        }
+
+        public Course() {
+            // hi there :) hey :)
         }
 
         public Course(String subject, String number, String name, String CRN, String section, String lecLab, String campusCode, String collegeCode, String maxEnrollment, String currentEnrollment, String startTime, String endTime, String days, String credits, String instructor, String netID, String email) {

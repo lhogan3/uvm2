@@ -25,18 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        // WE NEED HANDLER :(
-
-        mResponseHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == MESSAGE_ID) {
-
-                }
-            }
-        };
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
