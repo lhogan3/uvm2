@@ -111,7 +111,7 @@ public class CourseContent {
         }
 
         public Course() {
-            // hi there :) hey :)
+            // hi there :) hey :) howdy :)
         }
 
         public Course(String subject, String number, String name, String CRN, String section, String lecLab, String campusCode, String collegeCode, String maxEnrollment, String currentEnrollment, String startTime, String endTime, String days, String credits, String instructor, String netID, String email) {

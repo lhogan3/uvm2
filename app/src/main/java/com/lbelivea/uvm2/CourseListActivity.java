@@ -18,7 +18,6 @@ import androidx.core.app.NavUtils;
 import androidx.appcompat.app.ActionBar;
 
 import android.view.MenuItem;
-
 import com.lhogan.uvm2.CourseContent.Course;
 import com.lhogan.uvm2.*;
 
@@ -141,8 +140,9 @@ public class CourseListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).CRN);
-            holder.mContentView.setText(mValues.get(position).name); // Might have to change this to something else later
+            holder.mSubjectView.setText(mValues.get(position).subject);
+            holder.mNumberView.setText(mValues.get(position).number);
+            holder.mNameView.setText(mValues.get(position).name);
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
@@ -157,13 +157,15 @@ public class CourseListActivity extends AppCompatActivity {
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView mIdView;
-            final TextView mContentView;
+            final TextView mSubjectView;
+            final TextView mNumberView;
+            final TextView mNameView;
 
             ViewHolder(View view) {
                 super(view);
-                mIdView = (TextView) view.findViewById(R.id.id_text);
-                mContentView = (TextView) view.findViewById(R.id.content);
+                mSubjectView = view.findViewById(R.id.subject);
+                mNumberView = view.findViewById(R.id.number);
+                mNameView = view.findViewById(R.id.name);
             }
         }
     }
