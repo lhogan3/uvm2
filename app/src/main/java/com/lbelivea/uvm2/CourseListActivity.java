@@ -1,5 +1,4 @@
 package com.lbelivea.uvm2;
-import android.util.Log;
 
 import android.content.Context;
 import android.content.Intent;
@@ -149,10 +148,8 @@ public class CourseListActivity extends AppCompatActivity {
             holder.itemView.setOnClickListener(mOnClickListener);
         }
 
-        public static void  invalidateMyViewBitch(){
+        public static void  resetAdapter(){
             parentRecyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(parentThis, CourseContent.COURSES, parentMTwoPane));
-
-            Log.d("eee", "Invalidated");
         }
         @Override
         public int getItemCount() {
