@@ -6,10 +6,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import android.view.MenuItem;
 import com.lhogan.uvm2.CourseContent.Course;
 import com.lhogan.uvm2.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,23 +34,26 @@ import java.util.List;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class CourseListActivity extends AppCompatActivity {
+public class CourseListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
+    private SimpleItemRecyclerViewAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
+        mAdapter = new SimpleItemRecyclerViewAdapter(this, mTwoPane);
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -63,9 +69,58 @@ public class CourseListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
 
-        View recyclerView = findViewById(R.id.course_list);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+        mRecyclerView = findViewById(R.id.course_list);
+        assert mRecyclerView != null;
+        setupRecyclerView(mRecyclerView);
+        mAdapter.refresh();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_list, menu);
+
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+
+        final MenuItem refreshItem = menu.findItem(R.id.refresh);
+
+        return true;
+
+    }
+
+    @Override
+    public boolean onQueryTextChange(String query){
+        if(query.equals("")){
+            mAdapter.refresh();
+            return true;
+        }
+        final List<Course> filteredCourseList = filter(query);
+        mAdapter.clear();
+        mAdapter.add(filteredCourseList);
+        mAdapter.notifyDataSetChanged();
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query){
+        return false;
+    }
+
+    private static List<Course> filter(String query){
+        final String lowerQuery = query.toLowerCase();
+
+        final List<Course> allCourses = CourseContent.COURSES;
+        final List<Course> filteredCourseList = new ArrayList<>();
+
+        for(Course course : allCourses){
+            final String text = course.name.toLowerCase(); //TODO add all course info, not just name
+            if(text.contains(lowerQuery)){
+                filteredCourseList.add(course);
+            }
+        }
+        return filteredCourseList;
     }
 
     @Override
@@ -82,6 +137,9 @@ public class CourseListActivity extends AppCompatActivity {
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
+        else if (id == R.id.refresh) {
+            mAdapter.refresh();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -89,7 +147,7 @@ public class CourseListActivity extends AppCompatActivity {
         SimpleItemRecyclerViewAdapter.parentRecyclerView = recyclerView;
         SimpleItemRecyclerViewAdapter.parentThis = this;
         SimpleItemRecyclerViewAdapter.parentMTwoPane = mTwoPane;
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, CourseContent.COURSES, mTwoPane));
+        recyclerView.setAdapter(mAdapter);
     }
 
     public static class SimpleItemRecyclerViewAdapter
@@ -99,7 +157,7 @@ public class CourseListActivity extends AppCompatActivity {
         public static CourseListActivity parentThis;
         public static boolean parentMTwoPane;
         private final CourseListActivity mParentActivity;
-        private final List<CourseContent.Course> mValues;
+        private final List<CourseContent.Course> mValues = new ArrayList<>();
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
@@ -124,11 +182,40 @@ public class CourseListActivity extends AppCompatActivity {
         };
 
         SimpleItemRecyclerViewAdapter(CourseListActivity parent,
-                                      List<Course> items,
                                       boolean twoPane) {
-            mValues = items;
             mParentActivity = parent;
             mTwoPane = twoPane;
+        }
+
+        public void add(Course course){
+            mValues.add(course);
+            notifyDataSetChanged();
+        }
+
+        public void remove(Course course){
+            mValues.remove(course);
+            notifyDataSetChanged();
+        }
+
+        public void add(List<Course> courses){
+            mValues.addAll(courses);
+            notifyDataSetChanged();
+        }
+
+        public void remove(List<Course> courses){
+            mValues.removeAll(courses);
+            notifyDataSetChanged();
+        }
+
+        public void clear(){
+            mValues.clear();
+            notifyDataSetChanged();
+        }
+
+        public void refresh(){
+            mValues.clear();
+            mValues.addAll(CourseContent.COURSES);
+            notifyDataSetChanged();
         }
 
         @Override
@@ -149,7 +236,7 @@ public class CourseListActivity extends AppCompatActivity {
         }
 
         public static void  resetAdapter(){
-            parentRecyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(parentThis, CourseContent.COURSES, parentMTwoPane));
+            parentRecyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(parentThis, parentMTwoPane));
         }
         @Override
         public int getItemCount() {

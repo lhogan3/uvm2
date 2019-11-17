@@ -9,6 +9,7 @@
     <string name="title_course_detail">Course Detail</string>
     <string name="action_search">Filter Courses</string>
     <string name="search_hint">Enter criteria…</string>
+    <string name="action_refresh">Refresh</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
