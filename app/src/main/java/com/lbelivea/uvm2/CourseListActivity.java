@@ -109,14 +109,22 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
     }
 
     private static List<Course> filter(String query){
-        final String lowerQuery = query.toLowerCase();
+        String[] queries = query.toLowerCase().split(" ");
 
         final List<Course> allCourses = CourseContent.COURSES;
         final List<Course> filteredCourseList = new ArrayList<>();
 
+        boolean add;
+
         for(Course course : allCourses){
-            final String text = course.name.toLowerCase(); //TODO add all course info, not just name
-            if(text.contains(lowerQuery)){
+            add = true;
+            final String text = course.getData().toLowerCase();
+            for(String q : queries){
+                if(!text.contains(q)){
+                    add = false;
+                }
+            }
+            if(add){
                 filteredCourseList.add(course);
             }
         }

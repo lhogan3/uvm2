@@ -136,7 +136,17 @@ public class CourseContent {
 
         @Override
         public String toString() {
+
             return name;
+        }
+
+        /**
+         * concatenates all content for filtering
+         * @return all course content in one string, separated by spaces
+         */
+        public String getData(){
+            return subject + " " + number + " " + name + " " + startTime + " " + endTime + " "
+                    + days + " " + instructor;
         }
     }
 }
