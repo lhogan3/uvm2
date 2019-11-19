@@ -44,12 +44,12 @@ public class CourseContent {
         }
     }
     /**
-     * An array of sample (dummy) items.
+     * An array of all courses.
      */
     public static final List<Course> COURSES = new ArrayList<Course>();
 
     /**
-     * A map of sample (dummy) items, by ID.
+     * A map of all courses, by CRN.
      */
     public static final Map<String, Course> COURSE_MAP = new HashMap<String, Course>();
 
@@ -65,7 +65,7 @@ public class CourseContent {
 
 
     /**
-     * A dummy item representing a piece of content.
+     * simple class holding all data for a single course
      */
     public static class Course {
         public String subject;
@@ -88,7 +88,11 @@ public class CourseContent {
         public String netID;
         public String email;
 
-        public Course(String subject, String number, String name, String CRN, String section, String lecLab, String campusCode, String collegeCode, String maxEnrollment, String currentEnrollment, String startTime, String endTime, String days, String credits, String building, String room, String instructor, String netID, String email) {
+        public Course(String subject, String number, String name, String CRN, String section,
+                      String lecLab, String campusCode, String collegeCode, String maxEnrollment,
+                      String currentEnrollment, String startTime, String endTime, String days,
+                      String credits, String building, String room, String instructor,
+                      String netID, String email) {
             this.subject = subject;
             this.number = number;
             this.name = name;
@@ -114,7 +118,11 @@ public class CourseContent {
             // hi there :) hey :) howdy :)
         }
 
-        public Course(String subject, String number, String name, String CRN, String section, String lecLab, String campusCode, String collegeCode, String maxEnrollment, String currentEnrollment, String startTime, String endTime, String days, String credits, String instructor, String netID, String email) {
+
+        public Course(String subject, String number, String name, String CRN, String section,
+                      String lecLab, String campusCode, String collegeCode, String maxEnrollment,
+                      String currentEnrollment, String startTime, String endTime, String days,
+                      String credits, String instructor, String netID, String email) {
             this.subject = subject;
             this.number = number;
             this.name = name;
@@ -136,8 +144,7 @@ public class CourseContent {
 
         @Override
         public String toString() {
-
-            return name;
+            return subject + " " + number + " " + section + " " + name;
         }
 
         /**
