@@ -236,7 +236,8 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mSubjectView.setText(mValues.get(position).subject);
-            holder.mNumberView.setText(mValues.get(position).number);
+            String numSec = mValues.get(position).number + " " + mValues.get(position).section;
+            holder.mNumberView.setText(numSec);
             holder.mNameView.setText(mValues.get(position).name);
 
             holder.itemView.setTag(mValues.get(position));
