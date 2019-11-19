@@ -28,7 +28,7 @@ public class CourseDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
 
     /**
-     * The dummy content this fragment is presenting.
+     * The course content this fragment is presenting.
      */
     private CourseContent.Course mItem;
 
@@ -44,15 +44,13 @@ public class CourseDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
+            // Load the course content specified by the fragment
             mItem = CourseContent.COURSE_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
             Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+            CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.name);
+                appBarLayout.setTitle(mItem.subject + " " + mItem.number + " " + mItem.section);
             }
         }
     }
@@ -62,9 +60,22 @@ public class CourseDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.course_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
+        // Show the course content in a readable format in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.course_detail)).setText(mItem.subject);
+            String instructor = "Instructor: " + mItem.instructor;
+            String location = mItem.building + " " + mItem.room;
+            String time = mItem.days + " " + mItem.startTime + "-" + mItem.endTime;
+            String contactInfo = mItem.netID + " " + mItem.email;
+            String credits = mItem.credits + " credit(s) (" + mItem.lecLab + ")";
+            String seats = mItem.currentEnrollment + " out of " + mItem.maxEnrollment + " seats full";
+
+            ((TextView) rootView.findViewById(R.id.course_name)).setText(mItem.name);
+            ((TextView) rootView.findViewById(R.id.instructor)).setText(instructor);
+            ((TextView) rootView.findViewById(R.id.location)).setText(location);
+            ((TextView) rootView.findViewById(R.id.day_time)).setText(time);
+            ((TextView) rootView.findViewById(R.id.email)).setText(contactInfo);
+            ((TextView) rootView.findViewById(R.id.credits)).setText(credits);
+            ((TextView) rootView.findViewById(R.id.seats)).setText(seats);
         }
 
         return rootView;
