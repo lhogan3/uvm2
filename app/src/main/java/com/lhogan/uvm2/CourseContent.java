@@ -18,24 +18,31 @@ public class CourseContent {
     private static class Scraping extends AsyncTask<Void, Void, CourseContent.Course> {
         @Override
         protected CourseContent.Course doInBackground(Void... params) {
+            boolean[] crnTable = new boolean[19999];
             try {
                 URL url = new URL("https://giraffe.uvm.edu/~rgweb/batch/curr_enroll_spring.txt");
                 Scanner sc = new Scanner(url.openStream());
+                sc.nextLine();
                 while (sc.hasNextLine()) {
                     String currentLine = sc.nextLine().replace("\"", "");
                     String current[] = currentLine.split(",");
-                    if(current.length == 20) {
-                        //This constructor is for when the class in the txt has everything that it is supposed to.
-                        CourseContent.addItem(new Course(current[0], current[1], current[2], current[3], current[4], current[5], current[6], current[7], current[8], current[9], current[10], current[11], current[12], current[13], current[14], current[15], current[17] + " " + current[16], current[18], current[19]));
+                    Log.d("eee", "doInBackground: " + current[3]);
+                    if (!crnTable[Integer.parseInt(current[3])]) {
+                        crnTable[Integer.parseInt(current[3])] = true;
+                        if(current.length == 20) {
+                            //This constructor is for when the class in the txt has everything that it is supposed to.
+                            CourseContent.addItem(new Course(current[0], current[1], current[2], current[3], current[4], current[5], current[6], current[7], current[8], current[9], current[10], current[11], current[12], current[13], current[14], current[15], current[17] + " " + current[16], current[18], current[19]));
+                        }
+                        else if(current.length == 19){
+                            //This constructor is for when the instructor is listed as STAFF.
+                            CourseContent.addItem(new Course(current[0], current[1], current[2], current[3], current[4], current[5], current[6], current[7], current[8], current[9], current[10], current[11], current[12], current[13], current[14], current[15], current[17] + " " + current[16], current[18]));
+                        }
+                        else{
+                            //Some classes are missing many different things. Currently, just calling the default constructor.
+                            CourseContent.addItem(new Course());
+                        }
                     }
-                    else if(current.length == 19){
-                        //This constructor is for when the instructor is listed as STAFF.
-                        CourseContent.addItem(new Course(current[0], current[1], current[2], current[3], current[4], current[5], current[6], current[7], current[8], current[9], current[10], current[11], current[12], current[13], current[14], current[15], current[17] + " " + current[16], current[18]));
-                    }
-                    else{
-                        //Some classes are missing many different things. Currently, just calling the default constructor.
-                        CourseContent.addItem(new Course());
-                    }
+
                 }
             } catch (IOException e) {
                 Log.d("ERROR", "doInBackground: IO ERROR");
