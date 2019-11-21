@@ -21,15 +21,20 @@ public class CourseContent {
             try {
                 URL url = new URL("https://giraffe.uvm.edu/~rgweb/batch/curr_enroll_spring.txt");
                 Scanner sc = new Scanner(url.openStream());
-                sc.nextLine();
                 while (sc.hasNextLine()) {
-                    String currentLine = sc.nextLine();
-                    currentLine = currentLine.replace("\"", "");
+                    String currentLine = sc.nextLine().replace("\"", "");
                     String current[] = currentLine.split(",");
-                    try {
-                        CourseContent.addItem(new CourseContent.Course(current[0], current[1], current[2], current[3], current[4], current[5], current[6], current[7], current[8], current[9], current[10], current[11], current[12], current[13], current[14] + " " + current[15], current[16], current[17]));
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        Log.d("ERROR", "Staff Error");
+                    if(current.length == 20) {
+                        //This constructor is for when the class in the txt has everything that it is supposed to.
+                        CourseContent.addItem(new Course(current[0], current[1], current[2], current[3], current[4], current[5], current[6], current[7], current[8], current[9], current[10], current[11], current[12], current[13], current[14], current[15], current[17] + " " + current[16], current[18], current[19]));
+                    }
+                    else if(current.length == 19){
+                        //This constructor is for when the instructor is listed as STAFF.
+                        CourseContent.addItem(new Course(current[0], current[1], current[2], current[3], current[4], current[5], current[6], current[7], current[8], current[9], current[10], current[11], current[12], current[13], current[14], current[15], current[17] + " " + current[16], current[18]));
+                    }
+                    else{
+                        //Some classes are missing many different things. Currently, just calling the default constructor.
+                        CourseContent.addItem(new Course());
                     }
                 }
             } catch (IOException e) {
@@ -93,6 +98,7 @@ public class CourseContent {
                       String currentEnrollment, String startTime, String endTime, String days,
                       String credits, String building, String room, String instructor,
                       String netID, String email) {
+            //Good Constructor
             this.subject = subject;
             this.number = number;
             this.name = name;
@@ -114,15 +120,9 @@ public class CourseContent {
             this.email = email;
         }
 
-        public Course() {
-            // hi there :) hey :) howdy :)
-        }
+        public Course(String subject, String number, String name, String CRN, String section, String lecLab, String campusCode, String collegeCode, String maxEnrollment, String currentEnrollment, String startTime, String endTime, String days, String credits, String building, String room, String instructor, String netID) {
+            //Staff Constuctor
 
-
-        public Course(String subject, String number, String name, String CRN, String section,
-                      String lecLab, String campusCode, String collegeCode, String maxEnrollment,
-                      String currentEnrollment, String startTime, String endTime, String days,
-                      String credits, String instructor, String netID, String email) {
             this.subject = subject;
             this.number = number;
             this.name = name;
@@ -137,9 +137,14 @@ public class CourseContent {
             this.endTime = endTime;
             this.days = days;
             this.credits = credits;
+            this.building = building;
+            this.room = room;
             this.instructor = instructor;
             this.netID = netID;
-            this.email = email;
+        }
+
+        public Course() {
+            // hi there :) hey :) howdy :) hi :)
         }
 
         @Override
