@@ -146,7 +146,7 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
             return true;
         }
         else if (id == R.id.refresh) {
-            mAdapter.refresh();
+            new CourseContent.Scraping().execute();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -237,7 +237,7 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
             holder.itemView.setOnClickListener(mOnClickListener);
         }
 
-        public static void  resetAdapter(){
+        public static void resetAdapter(){
             mAdapter.refresh();
         }
         @Override

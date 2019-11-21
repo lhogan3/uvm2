@@ -15,7 +15,7 @@ import static com.lbelivea.uvm2.CourseListActivity.SimpleItemRecyclerViewAdapter
 
 
 public class CourseContent {
-    private static class Scraping extends AsyncTask<Void, Void, CourseContent.Course> {
+    public static class Scraping extends AsyncTask<Void, Void, CourseContent.Course> {
         @Override
         protected CourseContent.Course doInBackground(Void... params) {
             boolean[] crnTable = new boolean[19999];
@@ -26,7 +26,6 @@ public class CourseContent {
                 while (sc.hasNextLine()) {
                     String currentLine = sc.nextLine().replace("\"", "");
                     String current[] = currentLine.split(",");
-                    Log.d("eee", "doInBackground: " + current[3]);
                     if (!crnTable[Integer.parseInt(current[3])]) {
                         crnTable[Integer.parseInt(current[3])] = true;
                         if(current.length == 20) {

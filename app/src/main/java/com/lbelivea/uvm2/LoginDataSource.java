@@ -1,6 +1,8 @@
 package com.lbelivea.uvm2;
 
+
 import java.io.IOException;
+import com.lbelivea.uvm2.ApiInteractions.GetUser;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
@@ -11,6 +13,7 @@ public class LoginDataSource {
 
         try {
             // TODO: handle loggedInUser authentication
+            new GetUser().execute();
             LoggedInUser fakeUser =
                     new LoggedInUser(
                             java.util.UUID.randomUUID().toString(),
