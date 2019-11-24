@@ -1,26 +1,26 @@
 package com.lbelivea.uvm2;
 
 
+import android.util.Log;
+
 import java.io.IOException;
-import com.lbelivea.uvm2.ApiInteractions.GetUser;
+import com.lbelivea.uvm2.ApiInteractions.*;
 
 /**
- * Class that handles authentication w/ login credentials and retrieves user information.
+ * Class that handles authentication w/ authentication credentials and retrieves user information.
  */
 public class LoginDataSource {
 
-    public com.lbelivea.uvm2.Result<LoggedInUser> login(String username, String password) {
+    public LoggedInUser authentication(String username, String password) {
 
         try {
             // TODO: handle loggedInUser authentication
-            new GetUser().execute();
-            LoggedInUser fakeUser =
-                    new LoggedInUser(
-                            java.util.UUID.randomUUID().toString(),
-                            "Jane Doe");
-            return new com.lbelivea.uvm2.Result.Success<>(fakeUser);
+            new GetUser().execute(username, password);
+            LoggedInUser user = new LoggedInUser(username, password);
+            return user;
         } catch (Exception e) {
-            return new com.lbelivea.uvm2.Result.Error(new IOException("Error logging in", e));
+            Log.d("IO", "authentication: error");
+            return new LoggedInUser(false);
         }
     }
 

@@ -3,7 +3,7 @@ package com.lbelivea.uvm2;
 import androidx.annotation.Nullable;
 
 /**
- * Data validation state of the login form.
+ * Data validation state of the authentication form.
  */
 class LoginFormState {
     @Nullable

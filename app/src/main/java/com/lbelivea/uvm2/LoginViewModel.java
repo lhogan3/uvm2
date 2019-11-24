@@ -28,11 +28,11 @@ public class LoginViewModel extends ViewModel {
 
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job
-        Result<LoggedInUser> result = loginRepository.login(username, password);
+        LoggedInUser result = loginRepository.login(username, password);
 
-        if (result instanceof Result.Success) {
-            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+        if (result.isLoggedIn()) {
+            LoggedInUser data = new LoggedInUser(result.getNetId(), result.getPassword());
+            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getPassword())));
         } else {
             loginResult.setValue(new LoginResult(R.string.login_failed));
         }
@@ -62,6 +62,6 @@ public class LoginViewModel extends ViewModel {
 
     // A placeholder password validation check
     private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 5;
+        return password != null && password.trim().length() > 0;
     }
 }
