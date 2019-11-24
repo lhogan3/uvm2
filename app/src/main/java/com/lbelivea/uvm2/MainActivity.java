@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         buttonMyList.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 //change to my list
+                Intent changeToMyList = new Intent(v.getContext(),MyCourseListActivity.class);
+                startActivity(changeToMyList);
             }
         });
 
@@ -82,9 +84,13 @@ public class MainActivity extends AppCompatActivity {
                 //course listing
                 Intent changeToList = new Intent(this, CourseListActivity.class);
                 startActivity(changeToList);
+                Log.d("mymomma", "ur a bitch: ");
                 break;
             case R.id.mylist:
                 //my saved courses
+                Intent changeToMyList = new Intent(this,MyCourseListActivity.class);
+                startActivity(changeToMyList);
+                Log.d("urmomma", "my lisssst: ");
                 break;
         }
 
