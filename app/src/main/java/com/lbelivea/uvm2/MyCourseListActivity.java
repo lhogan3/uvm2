@@ -40,30 +40,30 @@ public class MyCourseListActivity extends AppCompatActivity implements SearchVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_course_list);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        //toolbar.setTitle(getTitle());
-
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        toolbar.setTitle("My Course List");
+//
         mAdapter = new MyCourseListActivity.SimpleItemRecyclerViewAdapter(this, mTwoPane);
-
-        // Show the Up button in the action bar.
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        if (findViewById(R.id.course_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
-        }
-
-        mRecyclerView = findViewById(R.id.my_course_list);
-        assert mRecyclerView != null;
-        setupRecyclerView(mRecyclerView);
-        mAdapter.refresh();
+//
+//        // Show the Up button in the action bar.
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//        }
+//
+//        if (findViewById(R.id.course_detail_container) != null) {
+//            // The detail container view will be present only in the
+//            // large-screen layouts (res/values-w900dp).
+//            // If this view is present, then the
+//            // activity should be in two-pane mode.
+//            mTwoPane = true;
+//        }
+//
+//        mRecyclerView = findViewById(R.id.my_course_list);
+//        assert mRecyclerView != null;
+//        setupRecyclerView(mRecyclerView);
+//        mAdapter.refresh();
 
     }
 
