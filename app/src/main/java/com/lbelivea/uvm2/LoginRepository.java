@@ -41,12 +41,10 @@ public class LoginRepository {
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    public Result<LoggedInUser> login(String username, String password) {
-        // handle authentication
-        Result<LoggedInUser> result = dataSource.authentication(username, password);
-        if (result instanceof Result.Success) {
-            setLoggedInUser(new LoggedInUser(username, password));
-        }
+    public LoggedInUser login(String username, String password) {
+        // not handle authentication
+        LoggedInUser result = new LoggedInUser(username, password);
+
         return result;
     }
 }
