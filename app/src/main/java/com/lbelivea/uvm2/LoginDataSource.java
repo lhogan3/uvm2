@@ -13,11 +13,9 @@ public class LoginDataSource {
 
         try {
             // TODO: handle loggedInUser authentication
-            new GetUser().execute();
+            new GetUser().execute(username);
             LoggedInUser fakeUser =
-                    new LoggedInUser(
-                            java.util.UUID.randomUUID().toString(),
-                            "Jane Doe");
+                    new LoggedInUser(username, password);
             return new com.lbelivea.uvm2.Result.Success<>(fakeUser);
         } catch (Exception e) {
             return new com.lbelivea.uvm2.Result.Error(new IOException("Error logging in", e));

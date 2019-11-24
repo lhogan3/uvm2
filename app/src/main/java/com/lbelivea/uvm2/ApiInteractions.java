@@ -10,11 +10,40 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class ApiInteractions {
-    public static class GetUser extends AsyncTask<Void, Void, CourseContent.Course> {
+    public static class GetUser extends AsyncTask<String, Void, CourseContent.Course> {
         @Override
-        protected CourseContent.Course doInBackground(Void... params) {
+        protected CourseContent.Course doInBackground(String... params) {
             try {
-                URL url = new URL("http://73.219.102.187:6969/getUser?netId=lmpotasi");
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/getUser?netId=");
+
+                URL.append(params[0]);
+
+                URL url = new URL(URL.toString());
+                Scanner sc = new Scanner(url.openStream());
+                while (sc.hasNextLine()) {
+                    Log.d("API", "getUser: " + sc.nextLine());
+                }
+            } catch (IOException e) {
+                Log.e("ERROR", "getUser API ERROR", e);
+            }
+            return new CourseContent.Course();
+        }
+
+        @Override
+        protected void onPostExecute(CourseContent.Course lastCourse) {
+
+        }
+    }
+
+    public static class AddUser extends AsyncTask<String, Void, CourseContent.Course> {
+        @Override
+        protected CourseContent.Course doInBackground(String... params) {
+            try {
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/getUser?netId=");
+
+                URL.append(params[0]);
+
+                URL url = new URL(URL.toString());
                 Scanner sc = new Scanner(url.openStream());
                 while (sc.hasNextLine()) {
                     Log.d("API", "getUser: " + sc.nextLine());
