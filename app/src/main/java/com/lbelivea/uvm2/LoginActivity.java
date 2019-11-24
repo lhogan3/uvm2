@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -58,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+
         loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
             @Override
             public void onChanged(@Nullable LoginResult loginResult) {
@@ -73,9 +76,16 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 setResult(Activity.RESULT_OK);
 
-                //Complete and destroy authentication activity once successful
-                finish();
+                //set the onclick to set the view to be the MainActivity
+                loginButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent changeToMain = new Intent(view.getContext(), MainActivity.class);
+                        startActivity(changeToMain);
+                    }
+                });
             }
+
         });
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
