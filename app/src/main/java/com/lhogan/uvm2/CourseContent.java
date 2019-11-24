@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.lbelivea.uvm2.CourseListActivity;
+import com.lbelivea.uvm2.LoggedInUser;
 
 import java.io.IOException;
 import java.net.URL;
@@ -53,6 +54,7 @@ public class CourseContent {
 
         @Override
         protected void onPostExecute(CourseContent.Course lastCourse) {
+            LoggedInUser.findUserCourses();
             resetAdapter();
         }
     }
