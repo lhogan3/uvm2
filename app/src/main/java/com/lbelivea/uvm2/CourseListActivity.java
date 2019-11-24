@@ -51,8 +51,16 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
 
-        if (isMyCourseList) {
-            Log.d("INFO", "onCreate: this is a my Coruse list");
+        if(CourseListActivity.isMyCourseList){
+            Log.d("INFO", "static initializer: ---------- my courses ");
+            CourseContent.clearLists();
+            for (Course c:LoggedInUser.getCourses()) {
+                CourseContent.addItem(c);
+            }
+
+        } else {
+            Log.d("INFO", "static initializer: ---------- course list");
+            new CourseContent.Scraping().execute();
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
