@@ -13,7 +13,7 @@ public class LoginDataSource {
 
         try {
             // TODO: handle loggedInUser authentication
-            new AddUser().execute(username);
+            new GetUser().execute(username);
             LoggedInUser fakeUser =
                     new LoggedInUser(username, password);
             return new com.lbelivea.uvm2.Result.Success<>(fakeUser);
