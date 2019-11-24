@@ -2,7 +2,7 @@ package com.lbelivea.uvm2;
 
 
 import java.io.IOException;
-import com.lbelivea.uvm2.ApiInteractions.GetUser;
+import com.lbelivea.uvm2.ApiInteractions.*;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
@@ -13,7 +13,7 @@ public class LoginDataSource {
 
         try {
             // TODO: handle loggedInUser authentication
-            new GetUser().execute(username);
+            new AddUser().execute(username);
             LoggedInUser fakeUser =
                     new LoggedInUser(username, password);
             return new com.lbelivea.uvm2.Result.Success<>(fakeUser);

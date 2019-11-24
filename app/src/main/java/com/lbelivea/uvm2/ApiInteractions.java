@@ -39,9 +39,72 @@ public class ApiInteractions {
         @Override
         protected CourseContent.Course doInBackground(String... params) {
             try {
-                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/getUser?netId=");
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/addUser?netId=");
 
                 URL.append(params[0]);
+
+                URL url = new URL(URL.toString());
+                Scanner sc = new Scanner(url.openStream());
+                while (sc.hasNextLine()) {
+                    Log.d("API", "addUser: " + sc.nextLine());
+                }
+            } catch (IOException e) {
+                Log.e("ERROR", "getUser API ERROR", e);
+            }
+            return new CourseContent.Course();
+        }
+
+        @Override
+        protected void onPostExecute(CourseContent.Course lastCourse) {
+
+        }
+    }
+
+    public static class AddClasses extends AsyncTask<String, Void, CourseContent.Course> {
+        @Override
+        protected CourseContent.Course doInBackground(String... params) {
+            try {
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/addClasses?netId=");
+                String classes = "&classes=";
+
+                URL.append(params[0]);
+
+                URL.append(classes);
+
+                for (int i = 1; i < params.length; i++) {
+                    URL.append(params[i]);
+                    URL.append(",");
+                }
+
+                URL.deleteCharAt(URL.length() - 1);
+
+                URL url = new URL(URL.toString());
+                Scanner sc = new Scanner(url.openStream());
+                while (sc.hasNextLine()) {
+                    Log.d("API", "getUser: " + sc.nextLine());
+                }
+            } catch (IOException e) {
+                Log.e("ERROR", "getUser API ERROR", e);
+            }
+            return new CourseContent.Course();
+        }
+
+        @Override
+        protected void onPostExecute(CourseContent.Course lastCourse) {
+
+        }
+    }
+
+    public static class DeleteClasses extends AsyncTask<String, Void, CourseContent.Course> {
+        @Override
+        protected CourseContent.Course doInBackground(String... params) {
+            try {
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/deleteClass?netId=");
+                String classes = "&classes=";
+
+                URL.append(params[0]);
+
+                URL.append(classes);
 
                 URL url = new URL(URL.toString());
                 Scanner sc = new Scanner(url.openStream());
