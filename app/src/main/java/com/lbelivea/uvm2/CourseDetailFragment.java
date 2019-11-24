@@ -30,7 +30,7 @@ public class CourseDetailFragment extends Fragment {
     /**
      * The course content this fragment is presenting.
      */
-    private CourseContent.Course mItem;
+    public static CourseContent.Course mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

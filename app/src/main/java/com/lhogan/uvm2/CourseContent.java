@@ -166,5 +166,9 @@ public class CourseContent {
             return subject + " " + number + " " + name + " " + startTime + " " + endTime + " "
                     + days + " " + instructor;
         }
+
+        public String getCRN() {
+            return CRN;
+        }
     }
 }

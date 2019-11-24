@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 //main screen
                 break;
             case R.id.login:
-                //login screen
+                //authentication screen
                 Intent changeToLogin = new Intent(this, LoginActivity.class);
                 startActivity(changeToLogin);
                 break;

@@ -5,11 +5,11 @@ import java.io.IOException;
 import com.lbelivea.uvm2.ApiInteractions.*;
 
 /**
- * Class that handles authentication w/ login credentials and retrieves user information.
+ * Class that handles authentication w/ authentication credentials and retrieves user information.
  */
 public class LoginDataSource {
 
-    public com.lbelivea.uvm2.Result<LoggedInUser> login(String username, String password) {
+    public com.lbelivea.uvm2.Result<LoggedInUser> authentication(String username, String password) {
 
         try {
             // TODO: handle loggedInUser authentication

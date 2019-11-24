@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 setResult(Activity.RESULT_OK);
 
-                //Complete and destroy login activity once successful
+                //Complete and destroy authentication activity once successful
                 finish();
             }
         });
