@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         final Button buttonMyList = findViewById(R.id.button_my_list);
         buttonMyList.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                //change to my list
+                Intent changeToList = new Intent(v.getContext(), CourseListActivity.class);
+                startActivity(changeToList);
             }
         });
 
