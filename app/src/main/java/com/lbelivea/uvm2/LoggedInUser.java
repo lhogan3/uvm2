@@ -13,12 +13,15 @@ public class LoggedInUser {
     private String password;
     private boolean loggedIn;
     private static ArrayList<CourseContent.Course> courses;
+    private static String APIResponde;
 
     public LoggedInUser(String netId, String password) {
         this.netId = netId;
         this.password = password;
         this.loggedIn = true;
         courses = new ArrayList<>();
+
+
     }
 
     public LoggedInUser(boolean bad) {
@@ -46,5 +49,9 @@ public class LoggedInUser {
 
     public static ArrayList<CourseContent.Course> getCourses() {
         return courses;
+    }
+
+    public static void setAPIResponde(String APIResponde) {
+        LoggedInUser.APIResponde = APIResponde;
     }
 }

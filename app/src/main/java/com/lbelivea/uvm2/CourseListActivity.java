@@ -10,6 +10,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -35,7 +36,6 @@ import java.util.List;
  * item details side-by-side using two vertical panes.
  */
 public class CourseListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -44,10 +44,16 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
     private static SimpleItemRecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
+    public static boolean isMyCourseList = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
+
+        if (isMyCourseList) {
+            Log.d("INFO", "onCreate: this is a my Coruse list");
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
