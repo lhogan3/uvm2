@@ -34,13 +34,26 @@ public class CourseDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
+        if(CourseListActivity.isMyCourseList){
+            fab.setImageResource(android.R.drawable.btn_minus);
+        }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Added to your list!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                new AddClasses().execute(LoginRepository.user.getNetId(), LoginRepository.user.getPassword(), CourseDetailFragment.mItem.getCRN());
-                LoginRepository.user.addCourse(CourseDetailFragment.mItem);
+                if(!CourseListActivity.isMyCourseList) {
+                    Snackbar.make(view, "Added to your list!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    new AddClasses().execute(LoginRepository.user.getNetId(),
+                            LoginRepository.user.getPassword(), CourseDetailFragment.mItem.getCRN());
+                    LoginRepository.user.addCourse(CourseDetailFragment.mItem);
+                }
+                else{
+                    Snackbar.make(view, "Deleted from your list!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    new DeleteClasses().execute(LoginRepository.user.getNetId(),
+                            LoginRepository.user.getPassword(), CourseDetailFragment.mItem.getCRN());
+                    LoginRepository.user.deleteCourse(CourseDetailFragment.mItem.getCRN());
+                }
             }
         });
 
