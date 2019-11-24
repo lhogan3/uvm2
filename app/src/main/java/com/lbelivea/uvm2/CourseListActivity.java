@@ -41,7 +41,7 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
      * device.
      */
     private boolean mTwoPane;
-    private SimpleItemRecyclerViewAdapter mAdapter;
+    private static SimpleItemRecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
     @Override
@@ -146,24 +146,17 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
             return true;
         }
         else if (id == R.id.refresh) {
-            mAdapter.refresh();
+            new CourseContent.Scraping().execute();
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        SimpleItemRecyclerViewAdapter.parentRecyclerView = recyclerView;
-        SimpleItemRecyclerViewAdapter.parentThis = this;
-        SimpleItemRecyclerViewAdapter.parentMTwoPane = mTwoPane;
         recyclerView.setAdapter(mAdapter);
     }
 
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
-
-        public static RecyclerView parentRecyclerView;
-        public static CourseListActivity parentThis;
-        public static boolean parentMTwoPane;
         private final CourseListActivity mParentActivity;
         private final List<CourseContent.Course> mValues = new ArrayList<>();
         private final boolean mTwoPane;
@@ -244,8 +237,8 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
             holder.itemView.setOnClickListener(mOnClickListener);
         }
 
-        public static void  resetAdapter(){
-            parentRecyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(parentThis, parentMTwoPane));
+        public static void resetAdapter(){
+            mAdapter.refresh();
         }
         @Override
         public int getItemCount() {
