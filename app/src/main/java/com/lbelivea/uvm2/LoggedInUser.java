@@ -21,10 +21,10 @@ public class LoggedInUser {
         this.loggedIn = true;
         courses = new ArrayList<>();
 
-        int startIndex = APIResponse.indexOf("[");
-        int endIndex = APIResponse.indexOf("]");
-
-        APIResponse = APIResponse.substring(startIndex, endIndex);
+//        int startIndex = APIResponse.indexOf("[") + 1;
+//        int endIndex = APIResponse.indexOf("]");
+//
+//        APIResponse = APIResponse.substring(startIndex, endIndex);
 
     }
 
