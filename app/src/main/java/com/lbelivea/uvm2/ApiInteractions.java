@@ -82,7 +82,7 @@ public class ApiInteractions {
 
                 URL.append("&classes=");
 
-                for (int i = 1; i < params.length; i++) {
+                for (int i = 2; i < params.length; i++) {
                     URL.append(params[i]);
                     URL.append(",");
                 }
@@ -119,6 +119,13 @@ public class ApiInteractions {
                 URL.append(params[1]);
 
                 URL.append("&classes=");
+
+                for (int i = 2; i < params.length; i++) {
+                    URL.append(params[i]);
+                    URL.append(",");
+                }
+
+                URL.deleteCharAt(URL.length() - 1);
 
                 URL url = new URL(URL.toString());
                 Scanner sc = new Scanner(url.openStream());

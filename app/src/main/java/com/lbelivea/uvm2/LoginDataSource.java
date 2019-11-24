@@ -15,7 +15,7 @@ public class LoginDataSource {
 
         try {
             // TODO: handle loggedInUser authentication
-            new GetUser().execute(username);
+            new GetUser().execute(username, password);
             LoggedInUser user = new LoggedInUser(username, password);
             return user;
         } catch (Exception e) {

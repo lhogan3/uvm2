@@ -45,6 +45,10 @@ public class LoginRepository {
         // not handle authentication
         LoggedInUser result = new LoggedInUser(username, password);
 
+        dataSource.authentication(result.getNetId(), result.getPassword());
+
+        setLoggedInUser(result);
+
         return result;
     }
 }
