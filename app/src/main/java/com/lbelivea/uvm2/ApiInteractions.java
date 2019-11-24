@@ -26,7 +26,7 @@ public class ApiInteractions {
                 Scanner sc = new Scanner(url.openStream());
                 String APIResponse = sc.nextLine();
                 Log.d("API", "getUser: " + APIResponse);
-                LoggedInUser.setAPIResponse(APIResponse);
+                LoggedInUser.parseCourses(APIResponse);
 
             } catch (Exception e) {
                 Log.e("ERROR", "getUser API ERROR", e);
@@ -58,7 +58,7 @@ public class ApiInteractions {
                     Log.d("API", "addUser: " + sc.nextLine());
                 }
             } catch (IOException e) {
-                Log.e("ERROR", "getUser API ERROR", e);
+                Log.e("ERROR", "addUser API ERROR", e);
             }
             return new CourseContent.Course();
         }
@@ -93,10 +93,10 @@ public class ApiInteractions {
                 URL url = new URL(URL.toString());
                 Scanner sc = new Scanner(url.openStream());
                 while (sc.hasNextLine()) {
-                    Log.d("API", "getUser: " + sc.nextLine());
+                    Log.d("API", "addClasses: " + sc.nextLine());
                 }
             } catch (IOException e) {
-                Log.e("ERROR", "getUser API ERROR", e);
+                Log.e("ERROR", "addClasses API ERROR", e);
             }
             return new CourseContent.Course();
         }
@@ -131,10 +131,10 @@ public class ApiInteractions {
                 URL url = new URL(URL.toString());
                 Scanner sc = new Scanner(url.openStream());
                 while (sc.hasNextLine()) {
-                    Log.d("API", "getUser: " + sc.nextLine());
+                    Log.d("API", "deleteClass: " + sc.nextLine());
                 }
             } catch (IOException e) {
-                Log.e("ERROR", "getUser API ERROR", e);
+                Log.e("ERROR", "deleteClass API ERROR", e);
             }
             return new CourseContent.Course();
         }

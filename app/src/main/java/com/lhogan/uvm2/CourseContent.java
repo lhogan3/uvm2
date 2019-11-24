@@ -56,6 +56,7 @@ public class CourseContent {
 
         @Override
         protected void onPostExecute(CourseContent.Course lastCourse) {
+            LoggedInUser.findUserCourses();
             resetAdapter();
         }
     }
