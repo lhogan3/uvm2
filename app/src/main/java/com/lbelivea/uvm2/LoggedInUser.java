@@ -13,7 +13,7 @@ public class LoggedInUser {
     private String password;
     private boolean loggedIn;
     private static ArrayList<CourseContent.Course> courses;
-    private static String APIResponde;
+    private static String APIResponse;
 
     public LoggedInUser(String netId, String password) {
         this.netId = netId;
@@ -21,6 +21,10 @@ public class LoggedInUser {
         this.loggedIn = true;
         courses = new ArrayList<>();
 
+        int startIndex = APIResponse.indexOf("[");
+        int endIndex = APIResponse.indexOf("]");
+
+        APIResponse = APIResponse.substring(startIndex, endIndex);
 
     }
 
@@ -51,7 +55,7 @@ public class LoggedInUser {
         return courses;
     }
 
-    public static void setAPIResponde(String APIResponde) {
-        LoggedInUser.APIResponde = APIResponde;
+    public static void setAPIResponse(String APIResponde) {
+        LoggedInUser.APIResponse = APIResponde;
     }
 }

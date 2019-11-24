@@ -26,7 +26,7 @@ public class ApiInteractions {
                 Scanner sc = new Scanner(url.openStream());
                 String APIResponse = sc.nextLine();
                 Log.d("API", "getUser: " + APIResponse);
-                LoggedInUser.setAPIResponde(APIResponse);
+                LoggedInUser.setAPIResponse(APIResponse);
 
             } catch (Exception e) {
                 Log.e("ERROR", "getUser API ERROR", e);
