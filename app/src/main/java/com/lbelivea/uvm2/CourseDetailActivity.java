@@ -40,6 +40,7 @@ public class CourseDetailActivity extends AppCompatActivity {
                 Snackbar.make(view, "Added to your list!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 new AddClasses().execute(LoginRepository.user.getNetId(), LoginRepository.user.getPassword(), CourseDetailFragment.mItem.getCRN());
+                LoginRepository.user.addCourse(CourseDetailFragment.mItem);
             }
         });
 

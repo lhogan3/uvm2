@@ -24,9 +24,10 @@ public class ApiInteractions {
 
                 URL url = new URL(URL.toString());
                 Scanner sc = new Scanner(url.openStream());
-                while (sc.hasNextLine()) {
-                    Log.d("API", "getUser: " + sc.nextLine());
-                }
+                String APIResponse = sc.nextLine();
+                Log.d("API", "getUser: " + APIResponse);
+                LoggedInUser.setAPIResponde(APIResponse);
+
             } catch (Exception e) {
                 Log.e("ERROR", "getUser API ERROR", e);
             }
