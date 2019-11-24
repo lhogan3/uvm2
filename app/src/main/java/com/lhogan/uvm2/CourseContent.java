@@ -3,6 +3,8 @@ package com.lhogan.uvm2;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.lbelivea.uvm2.CourseListActivity;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -65,7 +67,11 @@ public class CourseContent {
     public static final Map<String, Course> COURSE_MAP = new HashMap<String, Course>();
 
     static {
-        new Scraping().execute();
+        if(CourseListActivity.isMyCourseList){
+            //access Bill's static array
+        } else {
+            new Scraping().execute();
+        }
     }
 
     public static void addItem(Course course) {

@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         final Button buttonCourseList = findViewById(R.id.button_course_list);
         buttonCourseList.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                CourseListActivity.isMyCourseList = false;
                 Intent changeToList = new Intent(v.getContext(), CourseListActivity.class);
                 startActivity(changeToList);
             }
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         final Button buttonMyList = findViewById(R.id.button_my_list);
         buttonMyList.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                CourseListActivity.isMyCourseList = true;
                 Intent changeToList = new Intent(v.getContext(), CourseListActivity.class);
                 startActivity(changeToList);
             }
