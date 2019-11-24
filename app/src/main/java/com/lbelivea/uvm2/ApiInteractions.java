@@ -18,12 +18,16 @@ public class ApiInteractions {
 
                 URL.append(params[0]);
 
+                URL.append("&password=");
+
+                URL.append(params[1]);
+
                 URL url = new URL(URL.toString());
                 Scanner sc = new Scanner(url.openStream());
                 while (sc.hasNextLine()) {
                     Log.d("API", "getUser: " + sc.nextLine());
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 Log.e("ERROR", "getUser API ERROR", e);
             }
             return new CourseContent.Course();
@@ -42,6 +46,10 @@ public class ApiInteractions {
                 StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/addUser?netId=");
 
                 URL.append(params[0]);
+
+                URL.append("&password=");
+
+                URL.append(params[1]);
 
                 URL url = new URL(URL.toString());
                 Scanner sc = new Scanner(url.openStream());
@@ -65,11 +73,14 @@ public class ApiInteractions {
         protected CourseContent.Course doInBackground(String... params) {
             try {
                 StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/addClasses?netId=");
-                String classes = "&classes=";
 
                 URL.append(params[0]);
 
-                URL.append(classes);
+                URL.append("&password=");
+
+                URL.append(params[1]);
+
+                URL.append("&classes=");
 
                 for (int i = 1; i < params.length; i++) {
                     URL.append(params[i]);
@@ -100,11 +111,14 @@ public class ApiInteractions {
         protected CourseContent.Course doInBackground(String... params) {
             try {
                 StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/deleteClass?netId=");
-                String classes = "&classes=";
 
                 URL.append(params[0]);
 
-                URL.append(classes);
+                URL.append("&password=");
+
+                URL.append(params[1]);
+
+                URL.append("&classes=");
 
                 URL url = new URL(URL.toString());
                 Scanner sc = new Scanner(url.openStream());
