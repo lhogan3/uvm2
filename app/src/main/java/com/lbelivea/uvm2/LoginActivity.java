@@ -77,13 +77,13 @@ public class LoginActivity extends AppCompatActivity {
                 setResult(Activity.RESULT_OK);
 
                 //set the onclick to set the view to be the MainActivity
-                loginButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent changeToMain = new Intent(view.getContext(), MainActivity.class);
-                        startActivity(changeToMain);
-                    }
-                });
+//                loginButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent changeToMain = new Intent(view.getContext(), MainActivity.class);
+//                        startActivity(changeToMain);
+//                    }
+//                });
             }
 
         });
@@ -125,6 +125,8 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+                Intent changeToMain = new Intent(v.getContext(), MainActivity.class);
+                startActivity(changeToMain);
             }
         });
     }

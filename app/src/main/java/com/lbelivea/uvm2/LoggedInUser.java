@@ -35,6 +35,14 @@ public class LoggedInUser {
         courses.add(course);
     }
 
+    public void deleteCourse(String CRN){
+        for (CourseContent.Course c: courses) {
+            if(c.CRN.equals(CRN)){
+                courses.remove(c);
+            }
+        }
+    }
+
     public String getNetId() {
         return netId;
     }
