@@ -4,6 +4,8 @@ import com.lhogan.uvm2.CourseContent;
 
 import java.util.ArrayList;
 
+import static com.lhogan.uvm2.CourseContent.MY_COURSES;
+
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
  */
@@ -60,10 +62,10 @@ public class LoggedInUser {
     }
 
     public static void findUserCourses() {
-        for (int i = 0; i < CourseContent.MY_COURSES.size(); i++) {
+        for (int i = 0; i < CourseContent.COURSES.size(); i++) {
             for (int j = 0; j < crns.size(); j++) {
-                if (crns.get(j).equals(CourseContent.MY_COURSES.get(i).CRN)) {
-                    courses.add(CourseContent.MY_COURSES.get(i));
+                if (crns.get(j).equals(CourseContent.COURSES.get(i).CRN)) {
+                    MY_COURSES.add(CourseContent.COURSES.get(i));
                 }
             }
         }
