@@ -56,6 +56,7 @@ public class CourseContent {
 
         @Override
         protected void onPostExecute(CourseContent.Course lastCourse) {
+            CourseContent.TEMP_COURSES = new ArrayList<>(CourseContent.COURSES);
             LoggedInUser.findUserCourses();
             resetAdapter();
         }
