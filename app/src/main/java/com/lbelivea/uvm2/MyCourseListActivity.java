@@ -5,10 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.lhogan.uvm2.CourseContent;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,34 +23,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.core.app.NavUtils;
-import androidx.appcompat.app.ActionBar;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.view.MenuItem;
 import com.lhogan.uvm2.CourseContent.Course;
 import com.lhogan.uvm2.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * An activity representing a list of Courses. This activity
+ * An activity representing a list of Items. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link CourseDetailActivity} representing
+ * lead to a {@link } representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class CourseListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class MyCourseListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
-    private static SimpleItemRecyclerViewAdapter mAdapter;
+    private static MyCourseListActivity.SimpleItemRecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
-
-    public static boolean isMyCourseList = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +57,15 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        if(CourseListActivity.isMyCourseList){
-            Log.d("INFO", "static initializer: ---------- my courses ");
-            CourseContent.clearLists();
-            for (Course c:LoggedInUser.getCourses()) {
-                CourseContent.addItem(c);
-            }
-            toolbar.setTitle("My courses");
 
-        } else {
-            Log.d("INFO", "static initializer: ---------- course list");
-            new CourseContent.Scraping().execute();
+        Log.d("INFO", "static initializer: ---------- my courses ");
+        CourseContent.clearLists();
+        for (Course c:LoggedInUser.getCourses()) {
+            CourseContent.addItem(c);
         }
 
-        mAdapter = new SimpleItemRecyclerViewAdapter(this, mTwoPane);
+
+        mAdapter = new MyCourseListActivity.SimpleItemRecyclerViewAdapter(this, mTwoPane);
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -173,7 +170,7 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final CourseListActivity mParentActivity;
+        private final MyCourseListActivity mParentActivity;
         private final List<CourseContent.Course> mValues = new ArrayList<>();
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -199,7 +196,8 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
             }
         };
 
-        SimpleItemRecyclerViewAdapter(CourseListActivity parent,
+
+        SimpleItemRecyclerViewAdapter(MyCourseListActivity parent,
                                       boolean twoPane) {
             mParentActivity = parent;
             mTwoPane = twoPane;
