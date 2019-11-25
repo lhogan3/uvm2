@@ -65,7 +65,7 @@ public class LoggedInUser {
         for (int i = 0; i < CourseContent.COURSES.size(); i++) {
             for (int j = 0; j < crns.size(); j++) {
                 if (crns.get(j).equals(CourseContent.COURSES.get(i).CRN)) {
-                    MY_COURSES.add(CourseContent.COURSES.get(i));
+                    courses.add(CourseContent.COURSES.get(i));
                 }
             }
         }

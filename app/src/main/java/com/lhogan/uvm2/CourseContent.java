@@ -54,8 +54,6 @@ public class CourseContent {
 
         @Override
         protected void onPostExecute(CourseContent.Course lastCourse) {
-            CourseContent.MY_COURSES = new ArrayList<>(CourseContent.COURSES);
-            LoggedInUser.findUserCourses();
             resetAdapter();
         }
     }

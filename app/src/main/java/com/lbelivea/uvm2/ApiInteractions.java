@@ -28,6 +28,7 @@ public class ApiInteractions {
                 Log.d("API", "getUser: " + APIResponse);
                 LoggedInUser.parseCourses(APIResponse);
 
+
             } catch (Exception e) {
                 Log.e("ERROR", "getUser API ERROR", e);
             }
