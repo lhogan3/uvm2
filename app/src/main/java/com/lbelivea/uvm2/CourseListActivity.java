@@ -55,18 +55,9 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        if(CourseListActivity.isMyCourseList){
-            Log.d("INFO", "static initializer: ---------- my courses ");
-            CourseContent.clearLists();
-            for (Course c:LoggedInUser.getCourses()) {
-                CourseContent.addItem(c);
-            }
-            toolbar.setTitle("My courses");
+        Log.d("INFO", "static initializer: ---------- course list");
+        new CourseContent.Scraping().execute();
 
-        } else {
-            Log.d("INFO", "static initializer: ---------- course list");
-            new CourseContent.Scraping().execute();
-        }
 
         mAdapter = new SimpleItemRecyclerViewAdapter(this, mTwoPane);
 

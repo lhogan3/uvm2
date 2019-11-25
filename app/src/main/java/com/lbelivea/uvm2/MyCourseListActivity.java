@@ -63,6 +63,7 @@ public class MyCourseListActivity extends AppCompatActivity implements SearchVie
         for (Course c:LoggedInUser.getCourses()) {
             CourseContent.addItem(c);
         }
+        toolbar.setTitle("My courses");
 
 
         mAdapter = new MyCourseListActivity.SimpleItemRecyclerViewAdapter(this, mTwoPane);
@@ -123,7 +124,7 @@ public class MyCourseListActivity extends AppCompatActivity implements SearchVie
     private static List<Course> filter(String query){
         String[] queries = query.toLowerCase().split(" ");
 
-        final List<Course> allCourses = CourseContent.COURSES;
+        final List<Course> allCourses = CourseContent.MY_COURSES;
         final List<Course> filteredCourseList = new ArrayList<>();
 
         boolean add;

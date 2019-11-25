@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         buttonMyList.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 CourseListActivity.isMyCourseList = true;
-                Intent changeToList = new Intent(v.getContext(), CourseListActivity.class);
+                Intent changeToList = new Intent(v.getContext(), MyCourseListActivity.class);
                 startActivity(changeToList);
             }
         });

@@ -60,10 +60,10 @@ public class LoggedInUser {
     }
 
     public static void findUserCourses() {
-        for (int i = 0; i < CourseContent.TEMP_COURSES.size(); i++) {
+        for (int i = 0; i < CourseContent.MY_COURSES.size(); i++) {
             for (int j = 0; j < crns.size(); j++) {
-                if (crns.get(j).equals(CourseContent.TEMP_COURSES.get(i).CRN)) {
-                    courses.add(CourseContent.TEMP_COURSES.get(i));
+                if (crns.get(j).equals(CourseContent.MY_COURSES.get(i).CRN)) {
+                    courses.add(CourseContent.MY_COURSES.get(i));
                 }
             }
         }

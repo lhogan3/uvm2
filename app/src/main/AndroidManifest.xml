@@ -24,6 +24,15 @@
                 android:value="com.lbelivea.uvm2.MainActivity" />
         </activity>
         <activity
+            android:name=".MyCourseListActivity"
+            android:label="@string/title_course_list"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lbelivea.uvm2.MainActivity" />
+        </activity>
+        <activity
             android:name=".CourseDetailActivity"
             android:label="@string/title_course_detail"
             android:parentActivityName=".CourseListActivity"

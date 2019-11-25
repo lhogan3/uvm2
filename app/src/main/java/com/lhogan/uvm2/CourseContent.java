@@ -3,11 +3,9 @@ package com.lhogan.uvm2;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.lbelivea.uvm2.CourseListActivity;
 import com.lbelivea.uvm2.LoggedInUser;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,7 +54,7 @@ public class CourseContent {
 
         @Override
         protected void onPostExecute(CourseContent.Course lastCourse) {
-            CourseContent.TEMP_COURSES = new ArrayList<>(CourseContent.COURSES);
+            CourseContent.MY_COURSES = new ArrayList<>(CourseContent.COURSES);
             LoggedInUser.findUserCourses();
             resetAdapter();
         }
@@ -65,7 +63,7 @@ public class CourseContent {
      * An array of all courses.
      */
     public static List<Course> COURSES = new ArrayList<Course>();
-    public static List<Course> TEMP_COURSES = new ArrayList<Course>();
+    public static List<Course> MY_COURSES = new ArrayList<Course>();
 
     /**
      * A map of all courses, by CRN.
