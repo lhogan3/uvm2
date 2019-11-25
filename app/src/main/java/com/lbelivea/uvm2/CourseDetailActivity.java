@@ -46,6 +46,8 @@ public class CourseDetailActivity extends AppCompatActivity {
                     new AddClasses().execute(LoginRepository.user.getNetId(),
                             LoginRepository.user.getPassword(), CourseDetailFragment.mItem.getCRN());
                     LoginRepository.user.addCourse(CourseDetailFragment.mItem);
+                    Intent changeToList = new Intent(view.getContext(), CourseListActivity.class);
+                    startActivity(changeToList);
                 }
                 else{
                     Snackbar.make(view, "Deleted from your list!", Snackbar.LENGTH_LONG)
