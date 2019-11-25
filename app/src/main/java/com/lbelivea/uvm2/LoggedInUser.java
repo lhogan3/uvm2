@@ -13,15 +13,14 @@ public class LoggedInUser {
     private String password;
     private boolean loggedIn;
     private static ArrayList<CourseContent.Course> courses;
-    private static String APIResponde;
+    private static ArrayList<String> crns;
 
     public LoggedInUser(String netId, String password) {
         this.netId = netId;
         this.password = password;
         this.loggedIn = true;
         courses = new ArrayList<>();
-
-
+        crns = new ArrayList<>();
     }
 
     public LoggedInUser(boolean bad) {
@@ -29,6 +28,7 @@ public class LoggedInUser {
         this.password = "";
         this.loggedIn = false;
         courses = new ArrayList<>();
+        crns = new ArrayList<>();
     }
 
     public void addCourse(CourseContent.Course course) {
@@ -59,7 +59,28 @@ public class LoggedInUser {
         return courses;
     }
 
-    public static void setAPIResponde(String APIResponde) {
-        LoggedInUser.APIResponde = APIResponde;
+    public static void findUserCourses() {
+        for (int i = 0; i < CourseContent.COURSES.size(); i++) {
+            for (int j = 0; j < crns.size(); j++) {
+                if (crns.get(j) == CourseContent.COURSES.get(i).CRN) {
+                    courses.add(CourseContent.COURSES.get(i));
+                }
+            }
+        }
+    }
+
+    public static void parseCourses(String APIResponse) {
+        int startIndex = APIResponse.indexOf("[") + 1;
+        int endIndex = APIResponse.indexOf("]");
+
+        APIResponse = APIResponse.substring(startIndex, endIndex);
+
+        APIResponse = APIResponse.replace("\"", "");
+
+        String crnArray[] = APIResponse.split(",");
+
+        for (int i = 0; i < crnArray.length; i++) {
+            crns.add(crnArray[i]);
+        }
     }
 }

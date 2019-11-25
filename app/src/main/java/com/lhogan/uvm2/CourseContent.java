@@ -4,8 +4,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.lbelivea.uvm2.CourseListActivity;
+import com.lbelivea.uvm2.LoggedInUser;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +23,7 @@ public class CourseContent {
         @Override
         protected CourseContent.Course doInBackground(Void... params) {
             boolean[] crnTable = new boolean[19999];
+            clearLists();
             try {
                 URL url = new URL("https://giraffe.uvm.edu/~rgweb/batch/curr_enroll_spring.txt");
                 Scanner sc = new Scanner(url.openStream());
@@ -53,33 +56,31 @@ public class CourseContent {
 
         @Override
         protected void onPostExecute(CourseContent.Course lastCourse) {
+            LoggedInUser.findUserCourses();
             resetAdapter();
         }
     }
     /**
      * An array of all courses.
      */
-    public static final List<Course> COURSES = new ArrayList<Course>();
+    public static List<Course> COURSES = new ArrayList<Course>();
+    public static List<Course> TEMP_COURSES = new ArrayList<Course>();
 
     /**
      * A map of all courses, by CRN.
      */
-    public static final Map<String, Course> COURSE_MAP = new HashMap<String, Course>();
-
-    static {
-        if(CourseListActivity.isMyCourseList){
-            //access Bill's static array
-        } else {
-            new Scraping().execute();
-        }
-    }
+    public static Map<String, Course> COURSE_MAP = new HashMap<String, Course>();
+    public static Map<String, Course> TEMP_COURSE_MAP = new HashMap<String, Course>();
 
     public static void addItem(Course course) {
         COURSES.add(course);
         COURSE_MAP.put(course.CRN, course);
     }
 
-
+    public static void clearLists(){
+        COURSES.clear();
+        COURSE_MAP.clear();
+    }
 
     /**
      * simple class holding all data for a single course
