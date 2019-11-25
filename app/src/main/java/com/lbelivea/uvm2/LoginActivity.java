@@ -59,8 +59,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-
         loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
             @Override
             public void onChanged(@Nullable LoginResult loginResult) {
@@ -75,15 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                     updateUiWithUser(loginResult.getSuccess());
                 }
                 setResult(Activity.RESULT_OK);
-
-                //set the onclick to set the view to be the MainActivity
-//                loginButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Intent changeToMain = new Intent(view.getContext(), MainActivity.class);
-//                        startActivity(changeToMain);
-//                    }
-//                });
             }
 
         });

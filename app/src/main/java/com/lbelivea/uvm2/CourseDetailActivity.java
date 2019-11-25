@@ -35,7 +35,7 @@ public class CourseDetailActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
         if(CourseListActivity.isMyCourseList){
-            fab.setImageResource(android.R.drawable.btn_minus);
+            fab.setImageResource(android.R.drawable.ic_menu_delete);
         }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +53,8 @@ public class CourseDetailActivity extends AppCompatActivity {
                     new DeleteClasses().execute(LoginRepository.user.getNetId(),
                             LoginRepository.user.getPassword(), CourseDetailFragment.mItem.getCRN());
                     LoginRepository.user.deleteCourse(CourseDetailFragment.mItem.getCRN());
+                    Intent changeToList = new Intent(view.getContext(), CourseListActivity.class);
+                    startActivity(changeToList);
                 }
             }
         });
