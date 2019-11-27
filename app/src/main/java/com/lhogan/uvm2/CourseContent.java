@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import static com.lbelivea.uvm2.CourseListActivity.SimpleItemRecyclerViewAdapter.resetAdapter;
+import static com.lbelivea.uvm2.LoggedInUser.findUserCourses;
 
 
 public class CourseContent {
@@ -46,6 +47,8 @@ public class CourseContent {
                     }
 
                 }
+
+                findUserCourses();
             } catch (IOException e) {
                 Log.d("ERROR", "doInBackground: IO ERROR");
             }
