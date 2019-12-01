@@ -96,9 +96,6 @@ public class MyCourseListActivity extends AppCompatActivity implements SearchVie
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
-
-        final MenuItem refreshItem = menu.findItem(R.id.refresh);
-
         return true;
 
     }
@@ -157,9 +154,6 @@ public class MyCourseListActivity extends AppCompatActivity implements SearchVie
             //
             NavUtils.navigateUpFromSameTask(this);
             return true;
-        }
-        else if (id == R.id.refresh) {
-            new CourseContent.Scraping().execute();
         }
         return super.onOptionsItemSelected(item);
     }
