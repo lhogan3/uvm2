@@ -35,7 +35,7 @@ public class CourseDetailActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
         if(CourseListActivity.isMyCourseList){
-            fab.setImageResource(android.R.drawable.ic_menu_delete);
+            fab.setImageResource(R.drawable.ic_delete_black_24dp);
         }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
