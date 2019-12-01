@@ -90,8 +90,6 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
         final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
 
-        final MenuItem refreshItem = menu.findItem(R.id.refresh);
-
         return true;
 
     }
@@ -150,9 +148,6 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
             //
             NavUtils.navigateUpFromSameTask(this);
             return true;
-        }
-        else if (id == R.id.refresh) {
-            new CourseContent.Scraping().execute();
         }
         return super.onOptionsItemSelected(item);
     }
