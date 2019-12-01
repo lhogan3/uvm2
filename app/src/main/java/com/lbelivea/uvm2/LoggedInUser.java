@@ -38,9 +38,9 @@ public class LoggedInUser {
     }
 
     public void deleteCourse(String CRN){
-        for (CourseContent.Course c: courses) {
+        for (CourseContent.Course c: MY_COURSES) {
             if(c.CRN.equals(CRN)){
-                courses.remove(c);
+                MY_COURSES.remove(c);
             }
         }
     }
