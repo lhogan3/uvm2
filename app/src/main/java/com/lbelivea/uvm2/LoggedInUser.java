@@ -38,11 +38,13 @@ public class LoggedInUser {
     }
 
     public void deleteCourse(String CRN){
+        CourseContent.Course markedCourse = new CourseContent.Course();
         for (CourseContent.Course c: courses) {
             if(c.CRN.equals(CRN)){
-                courses.remove(c);
+                markedCourse = c;
             }
         }
+        courses.remove(markedCourse);
     }
 
     public String getNetId() {
