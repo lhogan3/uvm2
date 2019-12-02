@@ -63,9 +63,9 @@ public class CourseDetailFragment extends Fragment {
         // Show the course content in a readable format in a TextView.
         if (mItem != null) {
             String instructor = "Instructor: " + mItem.instructor;
-            String location = mItem.building + " " + mItem.room;
-            String time = mItem.days + " " + mItem.startTime + "-" + mItem.endTime;
-            String contactInfo = mItem.netID + " " + mItem.email;
+            String location = "Room: " + mItem.building + " " + mItem.room;
+            String time = "Schedule: " + mItem.days + " " + mItem.startTime + "-" + mItem.endTime;
+            String contactInfo = mItem.email;
             String credits = mItem.credits + " credit(s) (" + mItem.lecLab + ")";
             String seats = mItem.currentEnrollment + " out of " + mItem.maxEnrollment + " seats full";
 
