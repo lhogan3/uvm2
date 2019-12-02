@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
+import static com.lbelivea.uvm2.LoginRepository.realUser;
 
 
 public class LoginViewModel extends ViewModel {
@@ -26,15 +27,19 @@ public class LoginViewModel extends ViewModel {
         return loginResult;
     }
 
-    public void login(String username, String password) {
+    public boolean login(String username, String password) {
         // can be launched in a separate asynchronous job
         LoggedInUser result = loginRepository.login(username, password);
-
+        result.setLoggedIn(realUser);
         if (result.isLoggedIn()) {
             LoggedInUser data = new LoggedInUser(result.getNetId(), result.getPassword());
             loginResult.setValue(new LoginResult(new LoggedInUserView(data.getPassword())));
+            realUser = false;
+            return true;
         } else {
             loginResult.setValue(new LoginResult(R.string.login_failed));
+            realUser = false;
+            return false;
         }
     }
 

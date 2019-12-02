@@ -5,39 +5,59 @@ import android.util.Log;
 
 import com.lhogan.uvm2.CourseContent;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
+import static com.lbelivea.uvm2.LoginRepository.realUser;
+
 public class ApiInteractions {
-    public static class GetUser extends AsyncTask<String, Void, CourseContent.Course> {
+    public static class GetUser extends AsyncTask<String, String, String> {
+        //public AsyncResponse delegate;
         @Override
-        protected CourseContent.Course doInBackground(String... params) {
+        protected String doInBackground(String... params) {
             try {
-                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/getUser?netId=");
+                //Start building the urlString to make the get request
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6789/getUser?netId=");
 
+                //add username and password
                 URL.append(params[0]);
-
                 URL.append("&password=");
-
                 URL.append(params[1]);
 
+                //Change from a SB to a string
                 URL url = new URL(URL.toString());
+
+                //create the open stream and store the response
                 Scanner sc = new Scanner(url.openStream());
                 String APIResponse = sc.nextLine();
+
+                System.out.println(APIResponse);
+
                 Log.d("API", "getUser: " + APIResponse);
-                LoggedInUser.parseCourses(APIResponse);
+                realUser = true;
+                //LoggedInUser.parseCourses(APIResponse);
+            } catch (FileNotFoundException e) {
+                //Log.e("ERROR", "getUser API ERROR", e);
+                realUser = false;
 
-
-            } catch (Exception e) {
-                Log.e("ERROR", "getUser API ERROR", e);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            return new CourseContent.Course();
+        return "";
         }
 
         @Override
-        protected void onPostExecute(CourseContent.Course lastCourse) {
+        protected void onPostExecute(String thing) {
 
+        }
+
+        private String getAPIResponse(String response) {
+            return response;
         }
     }
 
@@ -45,7 +65,7 @@ public class ApiInteractions {
         @Override
         protected CourseContent.Course doInBackground(String... params) {
             try {
-                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/addUser?netId=");
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6789/addUser?netId=");
 
                 URL.append(params[0]);
 
@@ -65,16 +85,16 @@ public class ApiInteractions {
         }
 
         @Override
-        protected void onPostExecute(CourseContent.Course lastCourse) {
-
+        protected void onPostExecute(CourseContent.Course course) {
         }
+
     }
 
     public static class AddClasses extends AsyncTask<String, Void, CourseContent.Course> {
         @Override
         protected CourseContent.Course doInBackground(String... params) {
             try {
-                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/addClasses?netId=");
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6789/addClasses?netId=");
 
                 URL.append(params[0]);
 
@@ -112,7 +132,7 @@ public class ApiInteractions {
         @Override
         protected CourseContent.Course doInBackground(String... params) {
             try {
-                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/deleteClass?netId=");
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6789/deleteClass?netId=");
 
                 URL.append(params[0]);
 

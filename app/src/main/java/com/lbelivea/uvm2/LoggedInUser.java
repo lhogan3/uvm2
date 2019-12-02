@@ -20,18 +20,18 @@ public class LoggedInUser {
     public LoggedInUser(String netId, String password) {
         this.netId = netId;
         this.password = password;
-        this.loggedIn = true;
+        //this.loggedIn = true;
         courses = new ArrayList<>();
         crns = new ArrayList<>();
     }
 
-    public LoggedInUser(boolean bad) {
-        this.netId = "";
-        this.password = "";
-        this.loggedIn = false;
-        courses = new ArrayList<>();
-        crns = new ArrayList<>();
-    }
+//    public LoggedInUser(boolean bad) {
+//        this.netId = "";
+//        this.password = "";
+//        this.loggedIn = false;
+//        courses = new ArrayList<>();
+//        crns = new ArrayList<>();
+//    }
 
     public void addCourse(CourseContent.Course course) {
         courses.add(course);
@@ -55,6 +55,10 @@ public class LoggedInUser {
 
     public boolean isLoggedIn() {
         return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 
     public static ArrayList<CourseContent.Course> getCourses() {
