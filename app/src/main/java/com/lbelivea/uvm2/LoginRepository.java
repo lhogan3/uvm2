@@ -14,8 +14,6 @@ public class LoginRepository{
     private static volatile LoginRepository instance;
     //public String APIResponse = "";
 
-    public static boolean realUser = false;
-
     // If user credentials will be cached in local storage, it is recommended it be encrypted
     // @see https://developer.android.com/training/articles/keystore
     public static LoggedInUser user = null;

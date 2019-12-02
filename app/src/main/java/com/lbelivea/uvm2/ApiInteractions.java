@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
-import static com.lbelivea.uvm2.LoginRepository.realUser;
+import static com.lbelivea.uvm2.LoginViewModel.realUser;
 
 public class ApiInteractions {
     public static class GetUser extends AsyncTask<String, String, String> {
@@ -33,14 +33,14 @@ public class ApiInteractions {
                 //create the open stream and store the response
                 Scanner sc = new Scanner(url.openStream());
                 String APIResponse = sc.nextLine();
+                realUser = true;
 
                 System.out.println(APIResponse);
 
                 Log.d("API", "getUser: " + APIResponse);
-                realUser = true;
                 //LoggedInUser.parseCourses(APIResponse);
             } catch (FileNotFoundException e) {
-                //Log.e("ERROR", "getUser API ERROR", e);
+                Log.e("ERROR", "getUser API ERROR", e);
                 realUser = false;
 
             } catch (MalformedURLException e) {

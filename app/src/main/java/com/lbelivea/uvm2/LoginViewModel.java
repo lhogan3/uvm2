@@ -4,12 +4,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import android.util.Log;
 import android.util.Patterns;
-
-import static com.lbelivea.uvm2.LoginRepository.realUser;
 
 
 public class LoginViewModel extends ViewModel {
+
+    public static boolean realUser = false;
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
@@ -29,19 +30,63 @@ public class LoginViewModel extends ViewModel {
 
     public boolean login(String username, String password) {
         // can be launched in a separate asynchronous job
-        LoggedInUser result = loginRepository.login(username, password);
-        result.setLoggedIn(realUser);
-        if (result.isLoggedIn()) {
-            LoggedInUser data = new LoggedInUser(result.getNetId(), result.getPassword());
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getPassword())));
-            realUser = false;
+        //LoggedInUser result = loginRepository.login(username, password);
+        try {
+            // TODO: handle loggedInUser authentication
+            new ApiInteractions.GetUser().execute(username, password);
+
+        } catch (Exception e) {
+            Log.d("IO", "authentication: error");
+        }
+        if (realUser) {
+            //LoggedInUser data = new LoggedInUser(result.getNetId(), result.getPassword());
+            //loginResult.setValue(new LoginResult(new LoggedInUserView(data.getPassword())));
+            //realUser = false;
             return true;
         } else {
-            loginResult.setValue(new LoginResult(R.string.login_failed));
-            realUser = false;
+            //loginResult.setValue(new LoginResult(R.string.login_failed));
+            //realUser = false;
             return false;
         }
     }
+
+//    public LoggedInUser login(String username, String password) {
+//        // not handle authentication
+//        //creating a logged in user not setting whether they are logged in or not. (isLoggedIn = null)
+//        LoggedInUser result = new LoggedInUser(username, password);
+//        authentication(result.getNetId(), result.getPassword());
+//
+//        if(user.isLoggedIn()){
+//            result.setLoggedIn(true);
+//        }
+//        else{
+//            result.setLoggedIn(false);
+//        }
+//        setLoggedInUser(result);
+//
+//        return result;
+//    }
+
+//    public LoggedInUser authentication(String username, String password) {
+//
+//        try {
+//            // TODO: handle loggedInUser authentication
+//            new ApiInteractions.GetUser().execute(username, password);
+//            LoggedInUser user = new LoggedInUser(username, password);
+//
+//            setLoggedInUser(user);
+//            return user;
+//        } catch (Exception e) {
+//            Log.d("IO", "authentication: error");
+//            LoggedInUser badUser = new LoggedInUser(username, password);
+//            badUser.setLoggedIn(false);
+//            return badUser;
+//        }
+//    }
+
+
+
+
 
     public void loginDataChanged(String username, String password) {
         if (!isUserNameValid(username)) {
