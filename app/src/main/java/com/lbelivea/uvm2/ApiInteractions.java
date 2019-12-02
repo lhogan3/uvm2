@@ -14,7 +14,7 @@ public class ApiInteractions {
         @Override
         protected CourseContent.Course doInBackground(String... params) {
             try {
-                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/getUser?netId=");
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6789/getUser?netId=");
 
                 URL.append(params[0]);
 
