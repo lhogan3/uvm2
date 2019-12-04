@@ -33,17 +33,22 @@
         style="?android:attr/textAppearanceLarge"
         android:padding="@dimen/text_margin"
 
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginEnd="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_course_list"
         app:layout_constraintRight_toRightOf="@id/vertical_center"
-        app:layout_constraintTop_toBottomOf="@id/main_text" />
+        app:layout_constraintTop_toBottomOf="@id/main_text"
+        android:layout_marginRight="10dp" />
 
     <Button
         android:id="@+id/button_my_list"
 
         style="?android:attr/textAppearanceLarge"
         android:padding="@dimen/text_margin"
+
+        android:background="@color/colorPrimaryDark"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
