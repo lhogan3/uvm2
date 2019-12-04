@@ -5,16 +5,19 @@ import android.util.Log;
 
 import com.lhogan.uvm2.CourseContent;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 
 public class ApiInteractions {
+
     public static class GetUser extends AsyncTask<String, Void, CourseContent.Course> {
+        private static boolean loginResult = true;
         @Override
         protected CourseContent.Course doInBackground(String... params) {
             try {
-                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/getUser?netId=");
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6789/getUser?netId=");
 
                 URL.append(params[0]);
 
@@ -26,18 +29,21 @@ public class ApiInteractions {
                 Scanner sc = new Scanner(url.openStream());
                 String APIResponse = sc.nextLine();
                 Log.d("API", "getUser: " + APIResponse);
+
                 LoggedInUser.parseCourses(APIResponse);
 
+                loginResult = true;
 
             } catch (Exception e) {
-                Log.e("ERROR", "getUser API ERROR", e);
+                Log.d("info", "login Failed");
+                loginResult = false;
             }
             return new CourseContent.Course();
         }
 
         @Override
         protected void onPostExecute(CourseContent.Course lastCourse) {
-
+            LoginActivity.loginActivityInstance.attemptLogin(loginResult);
         }
     }
 
@@ -45,7 +51,7 @@ public class ApiInteractions {
         @Override
         protected CourseContent.Course doInBackground(String... params) {
             try {
-                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/addUser?netId=");
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6789/addUser?netId=");
 
                 URL.append(params[0]);
 
@@ -74,7 +80,7 @@ public class ApiInteractions {
         @Override
         protected CourseContent.Course doInBackground(String... params) {
             try {
-                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/addClasses?netId=");
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6789/addClasses?netId=");
 
                 URL.append(params[0]);
 
@@ -112,7 +118,7 @@ public class ApiInteractions {
         @Override
         protected CourseContent.Course doInBackground(String... params) {
             try {
-                StringBuilder URL = new StringBuilder("http://73.219.102.187:6969/deleteClass?netId=");
+                StringBuilder URL = new StringBuilder("http://73.219.102.187:6789/deleteClass?netId=");
 
                 URL.append(params[0]);
 

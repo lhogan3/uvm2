@@ -35,7 +35,7 @@ public class CourseDetailActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
         if(CourseListActivity.isMyCourseList){
-            fab.setImageResource(android.R.drawable.ic_menu_delete);
+            fab.setImageResource(R.drawable.ic_delete_black_24dp);
         }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,16 +43,16 @@ public class CourseDetailActivity extends AppCompatActivity {
                 if(!CourseListActivity.isMyCourseList) {
                     Snackbar.make(view, "Added to your list!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    new AddClasses().execute(LoginRepository.user.getNetId(),
-                            LoginRepository.user.getPassword(), CourseDetailFragment.mItem.getCRN());
-                    LoginRepository.user.addCourse(CourseDetailFragment.mItem);
+                    new AddClasses().execute(LoginActivity.user.getNetId(),
+                            LoginActivity.user.getPassword(), CourseDetailFragment.mItem.getCRN());
+                    LoginActivity.user.addCourse(CourseDetailFragment.mItem);
                 }
                 else{
                     Snackbar.make(view, "Deleted from your list!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    new DeleteClasses().execute(LoginRepository.user.getNetId(),
-                            LoginRepository.user.getPassword(), CourseDetailFragment.mItem.getCRN());
-                    LoginRepository.user.deleteCourse(CourseDetailFragment.mItem.getCRN());
+                    new DeleteClasses().execute(LoginActivity.user.getNetId(),
+                            LoginActivity.user.getPassword(), CourseDetailFragment.mItem.getCRN());
+                    LoginActivity.user.deleteCourse(CourseDetailFragment.mItem.getCRN());
                     Intent changeToList = new Intent(view.getContext(), MyCourseListActivity.class);
                     startActivity(changeToList);
                 }
