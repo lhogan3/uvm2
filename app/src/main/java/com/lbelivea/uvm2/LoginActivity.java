@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public static LoginActivity loginActivityInstance;
     private LoginViewModel loginViewModel;
+    public static LoggedInUser user = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-                LoginRepository.user = new LoggedInUser(username, password);
+                user = new LoggedInUser(username, password);
                 try {
                     // TODO: handle loggedInUser authentication
                     new ApiInteractions.GetUser().execute(username, password);
