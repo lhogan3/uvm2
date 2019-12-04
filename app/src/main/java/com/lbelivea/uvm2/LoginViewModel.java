@@ -32,7 +32,7 @@ public class LoginViewModel extends ViewModel {
 
         if (result.isLoggedIn()) {
             LoggedInUser data = new LoggedInUser(result.getNetId(), result.getPassword());
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getPassword())));
+            loginResult.setValue(new LoginResult());
         } else {
             loginResult.setValue(new LoginResult(R.string.login_failed));
         }

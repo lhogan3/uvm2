@@ -72,9 +72,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginResult.getError() != null) {
                     showLoginFailed(loginResult.getError());
                 }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
-                }
                 setResult(Activity.RESULT_OK);
             }
 
@@ -143,10 +140,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void updateUiWithUser(LoggedInUserView model) {
-        // TODO : initiate successful logged in experience
-
-    }
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
