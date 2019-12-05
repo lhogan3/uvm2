@@ -28,7 +28,7 @@ import android.view.MenuItem;
 import com.lhogan.uvm2.CourseContent.Course;
 
 
-public class MyCourseListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class MyCourseListActivity extends AppCompatActivity {
 
 
     private boolean mTwoPane;
@@ -74,68 +74,6 @@ public class MyCourseListActivity extends AppCompatActivity implements SearchVie
         setupRecyclerView(mRecyclerView);
         mAdapter.refresh();
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_list, menu);
-
-        final MenuItem searchItem = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setOnQueryTextListener(this);
-        return true;
-
-    }
-
-    @Override
-    public boolean onQueryTextChange(String query){
-        if(query.equals("")){
-            mAdapter.refresh();
-            return true;
-        }
-        final List<Course> filteredCourseList = filter(query);
-        mAdapter.clear();
-        mAdapter.add(filteredCourseList);
-        mAdapter.notifyDataSetChanged();
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query){
-        return false;
-    }
-
-    private static List<Course> filter(String query){
-        String[] queries = query.toLowerCase().split(" ");
-
-        final List<Course> allCourses = CourseContent.MY_COURSES;
-        final List<Course> filteredCourseList = new ArrayList<>();
-
-        boolean add;
-
-        for(Course course : allCourses){
-            add = true;
-            final String text = course.getData().toLowerCase();
-            for(String q : queries){
-                if(!text.contains(q)){
-                    add = false;
-                }
-            }
-            if(add){
-                filteredCourseList.add(course);
-            }
-        }
-        return filteredCourseList;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
