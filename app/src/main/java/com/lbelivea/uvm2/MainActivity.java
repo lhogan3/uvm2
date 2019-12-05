@@ -19,21 +19,30 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // scrape the courses from the uvm site
         new CourseContent.Scraping().execute();
 
+        // button to go to course list
         final Button buttonCourseList = findViewById(R.id.button_course_list);
         buttonCourseList.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                // set my course list to false
                 CourseListActivity.isMyCourseList = false;
+
+                // go to course list
                 Intent changeToList = new Intent(v.getContext(), CourseListActivity.class);
                 startActivity(changeToList);
             }
         });
 
+        // button to go to my course list
         final Button buttonMyList = findViewById(R.id.button_my_list);
         buttonMyList.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                // set my course list to true
                 CourseListActivity.isMyCourseList = true;
+
+                // go to my course list
                 Intent changeToList = new Intent(v.getContext(), MyCourseListActivity.class);
                 startActivity(changeToList);
             }

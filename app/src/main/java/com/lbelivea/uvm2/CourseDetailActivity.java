@@ -27,6 +27,7 @@ public class CourseDetailActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
+        // floating action button to delete or add depending on if in course list or my course list
         FloatingActionButton fab = findViewById(R.id.fab);
         if(CourseListActivity.isMyCourseList){
             fab.setImageResource(R.drawable.ic_delete_black_24dp);
@@ -34,19 +35,29 @@ public class CourseDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // if my course list
                 if(!CourseListActivity.isMyCourseList) {
+                    // display added to list
                     Snackbar.make(view, "Added to your list!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+
+                    // add class
                     new AddClasses().execute(LoginActivity.user.getNetId(),
                             LoginActivity.user.getPassword(), CourseDetailFragment.mItem.getCRN());
+
+                    // add class
                     LoginActivity.user.addCourse(CourseDetailFragment.mItem);
-                }
-                else{
+                } else {
+                    // display deleted class from list
                     Snackbar.make(view, "Deleted from your list!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+
+                    // delete class
                     new DeleteClasses().execute(LoginActivity.user.getNetId(),
                             LoginActivity.user.getPassword(), CourseDetailFragment.mItem.getCRN());
                     LoginActivity.user.deleteCourse(CourseDetailFragment.mItem.getCRN());
+
+                    // return to my course list activity
                     Intent changeToList = new Intent(view.getContext(), MyCourseListActivity.class);
                     startActivity(changeToList);
                 }

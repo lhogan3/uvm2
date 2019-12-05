@@ -20,6 +20,8 @@ import static com.lbelivea.uvm2.LoggedInUser.findUserCourses;
 
 
 public class CourseContent {
+
+    // scrape the courses from the uvm site
     public static class Scraping extends AsyncTask<Void, Void, CourseContent.Course> {
         @Override
         protected CourseContent.Course doInBackground(Void... params) {

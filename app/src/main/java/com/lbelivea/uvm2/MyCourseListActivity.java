@@ -7,8 +7,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
@@ -16,7 +14,6 @@ import com.lhogan.uvm2.CourseContent;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -24,12 +21,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.view.MenuItem;
 import com.lhogan.uvm2.CourseContent.Course;
 
 
 public class MyCourseListActivity extends AppCompatActivity {
-
 
     private boolean mTwoPane;
     private static MyCourseListActivity.SimpleItemRecyclerViewAdapter mAdapter;
@@ -48,14 +43,19 @@ public class MyCourseListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-
+        // log my courses
         Log.d("INFO", "static initializer: ---------- my courses ");
+
+        // clear course content
         CourseContent.clearLists();
+
+        // add courses that are in my course list
         for (Course c:LoggedInUser.getCourses()) {
             CourseContent.addItem(c);
         }
-        toolbar.setTitle("My courses");
 
+        // set the title to my courses
+        toolbar.setTitle("My courses");
 
         mAdapter = new MyCourseListActivity.SimpleItemRecyclerViewAdapter(this, mTwoPane);
 
@@ -113,16 +113,6 @@ public class MyCourseListActivity extends AppCompatActivity {
                                       boolean twoPane) {
             mParentActivity = parent;
             mTwoPane = twoPane;
-        }
-
-        public void add(List<Course> courses){
-            mValues.addAll(courses);
-            notifyDataSetChanged();
-        }
-
-        public void clear(){
-            mValues.clear();
-            notifyDataSetChanged();
         }
 
         public void refresh(){
