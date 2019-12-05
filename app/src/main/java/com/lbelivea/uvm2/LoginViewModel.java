@@ -35,6 +35,7 @@ public class LoginViewModel extends ViewModel {
             // TODO: handle loggedInUser authentication
             new ApiInteractions.GetUser().execute(username, password);
 
+<<<<<<< HEAD
         } catch (Exception e) {
             Log.d("IO", "authentication: error");
         }
@@ -43,6 +44,11 @@ public class LoginViewModel extends ViewModel {
             //loginResult.setValue(new LoginResult(new LoggedInUserView(data.getPassword())));
             //realUser = false;
             return true;
+=======
+        if (result.isLoggedIn()) {
+            LoggedInUser data = new LoggedInUser(result.getNetId(), result.getPassword());
+            loginResult.setValue(new LoginResult());
+>>>>>>> fadd054d5bbd4640a0459f49c026157f141b42ba
         } else {
             //loginResult.setValue(new LoginResult(R.string.login_failed));
             //realUser = false;

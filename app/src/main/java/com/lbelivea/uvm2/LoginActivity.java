@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -29,11 +30,14 @@ import java.util.Scanner;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static LoginActivity loginActivityInstance;
     private LoginViewModel loginViewModel;
+    public static LoggedInUser user = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loginActivityInstance = this;
         setContentView(R.layout.activity_login);
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
@@ -68,9 +72,6 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.GONE);
                 if (loginResult.getError() != null) {
                     showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
                 }
                 setResult(Activity.RESULT_OK);
             }
@@ -112,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
+<<<<<<< HEAD
                 boolean login = loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
                 if(login){
@@ -121,14 +123,36 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     System.out.println("I hate myself");
                 }
+=======
+                String username = usernameEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                user = new LoggedInUser(username, password);
+                try {
+                    // TODO: handle loggedInUser authentication
+                    new ApiInteractions.GetUser().execute(username, password);
+                } catch (Exception e) {
+                    Log.d("IO", "authentication: error");
+                }
+//                Intent changeToMain = new Intent(v.getContext(), MainActivity.class);
+//                startActivity(changeToMain);
+>>>>>>> fadd054d5bbd4640a0459f49c026157f141b42ba
             }
         });
     }
 
-    private void updateUiWithUser(LoggedInUserView model) {
-        // TODO : initiate successful logged in experience
+    public void attemptLogin(boolean loggedIn) {
+        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        if(loggedIn){
+            Intent changeToMain = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(changeToMain);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+            loadingProgressBar.setVisibility(View.INVISIBLE);
+        }
 
     }
+
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();

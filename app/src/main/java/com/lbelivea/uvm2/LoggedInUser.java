@@ -38,11 +38,19 @@ public class LoggedInUser {
     }
 
     public void deleteCourse(String CRN){
+<<<<<<< HEAD
         for (CourseContent.Course c: MY_COURSES) {
             if(c.CRN.equals(CRN)){
                 MY_COURSES.remove(c);
+=======
+        CourseContent.Course markedCourse = new CourseContent.Course();
+        for (CourseContent.Course c: courses) {
+            if(c.CRN.equals(CRN)){
+                markedCourse = c;
+>>>>>>> fadd054d5bbd4640a0459f49c026157f141b42ba
             }
         }
+        courses.remove(markedCourse);
     }
 
     public String getNetId() {
