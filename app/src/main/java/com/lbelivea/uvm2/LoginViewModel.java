@@ -50,18 +50,25 @@ public class LoginViewModel extends ViewModel {
 
     // A placeholder username validation check
     private boolean isUserNameValid(String username) {
+        // if no username
         if (username == null) {
+            // not valid
             return false;
         }
-        if (username.contains("@")) {
-            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-        } else {
-            return !username.trim().isEmpty();
-        }
+
+        // not null so it could be a netId, checks with banner
+        return true;
     }
 
     // A placeholder password validation check
     private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 0;
+        // if no password
+        if (password == null) {
+            // not valid
+            return false;
+        }
+
+        // not null could be a password, checks with banner
+        return true;
     }
 }

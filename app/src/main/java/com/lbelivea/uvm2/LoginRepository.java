@@ -25,23 +25,14 @@ public class LoginRepository {
         return instance;
     }
 
-    public void logout() {
-        dataSource.logout();
-    }
-
-    private void setLoggedInUser(LoggedInUser user) {
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
-    }
-
     public LoggedInUser login(String username, String password) {
-        // not handle authentication
+        // new loggedinuser
         LoggedInUser result = new LoggedInUser(username, password);
 
+        // run authentication on the user
         dataSource.authentication(result.getNetId(), result.getPassword());
 
-        setLoggedInUser(result);
-
+        // return the result user
         return result;
     }
 }

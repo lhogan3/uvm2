@@ -12,19 +12,26 @@ import com.lbelivea.uvm2.ApiInteractions.*;
 public class LoginDataSource {
 
     public LoggedInUser authentication(String username, String password) {
-
+        // try to login
         try {
-            // TODO: handle loggedInUser authentication
+            // get the user from api
             new GetUser().execute(username, password);
+
+            // new loggedinuser
             LoggedInUser user = new LoggedInUser(username, password);
+
+            // return the user
             return user;
+
         } catch (Exception e) {
             Log.d("IO", "authentication: error");
+
+            // return a bad loggedinuser
             return new LoggedInUser(false);
         }
     }
 
     public void logout() {
-        // TODO: revoke authentication
+
     }
 }

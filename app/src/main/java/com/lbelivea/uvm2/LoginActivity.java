@@ -38,11 +38,17 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
+        // edit texts for the username and password
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
+
+        // button to press for login
         final Button loginButton = findViewById(R.id.login);
+
+        // progress bar for when it is loading the main activity
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
+        //
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
             public void onChanged(@Nullable LoginFormState loginFormState) {
@@ -75,14 +81,14 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
+            // need to override
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // ignore
             }
 
+            // need to override
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // ignore
             }
 
             @Override
@@ -105,38 +111,45 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // when the login button is clicked
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // set loading bar to visible
                 loadingProgressBar.setVisibility(View.VISIBLE);
+
+                // get the username and password from the edit text
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
+
+                // create new loggedinuser with the username and password
                 user = new LoggedInUser(username, password);
+
+                // try to get the user from api
                 try {
-                    // TODO: handle loggedInUser authentication
                     new ApiInteractions.GetUser().execute(username, password);
                 } catch (Exception e) {
                     Log.d("IO", "authentication: error");
                 }
-//                Intent changeToMain = new Intent(v.getContext(), MainActivity.class);
-//                startActivity(changeToMain);
             }
         });
     }
 
     public void attemptLogin(boolean loggedIn) {
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
-        if(loggedIn){
+
+        // if we login
+        if(loggedIn) {
+            // go to the main activity
             Intent changeToMain = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(changeToMain);
-        }
-        else{
+        } else {
+            // else tell user login failed
             Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
             loadingProgressBar.setVisibility(View.INVISIBLE);
         }
 
     }
-
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
