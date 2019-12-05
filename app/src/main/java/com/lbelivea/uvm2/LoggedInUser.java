@@ -4,11 +4,7 @@ import com.lhogan.uvm2.CourseContent;
 
 import java.util.ArrayList;
 
-import static com.lhogan.uvm2.CourseContent.MY_COURSES;
 
-/**
- * Data class that captures user information for logged in users retrieved from LoginRepository
- */
 public class LoggedInUser {
 
     private String netId;

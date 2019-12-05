@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.lhogan.uvm2.CourseContent;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;

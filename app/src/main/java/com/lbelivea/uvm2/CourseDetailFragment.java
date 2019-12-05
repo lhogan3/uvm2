@@ -14,31 +14,19 @@ import android.widget.TextView;
 
 import com.lhogan.uvm2.CourseContent;
 
-/**
- * A fragment representing a single Course detail screen.
- * This fragment is either contained in a {@link CourseListActivity}
- * in two-pane mode (on tablets) or a {@link CourseDetailActivity}
- * on handsets.
- */
 public class CourseDetailFragment extends Fragment {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
+
+    //The key in the bundle for the id being stored.
     public static final String ARG_ITEM_ID = "item_id";
 
-    /**
-     * The course content this fragment is presenting.
-     */
+    //The Course being displayed in the detail.
     public static CourseContent.Course mItem;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    //Default constructor
     public CourseDetailFragment() {
     }
 
+    //Create the Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

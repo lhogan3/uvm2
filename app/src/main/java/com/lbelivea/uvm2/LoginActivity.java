@@ -24,10 +24,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Scanner;
-
 public class LoginActivity extends AppCompatActivity {
 
     public static LoginActivity loginActivityInstance;

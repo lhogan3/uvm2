@@ -193,23 +193,8 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
             mTwoPane = twoPane;
         }
 
-        public void add(Course course){
-            mValues.add(course);
-            notifyDataSetChanged();
-        }
-
-        public void remove(Course course){
-            mValues.remove(course);
-            notifyDataSetChanged();
-        }
-
         public void add(List<Course> courses){
             mValues.addAll(courses);
-            notifyDataSetChanged();
-        }
-
-        public void remove(List<Course> courses){
-            mValues.removeAll(courses);
             notifyDataSetChanged();
         }
 
