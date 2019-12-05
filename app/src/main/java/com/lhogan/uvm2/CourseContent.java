@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.lbelivea.uvm2.CourseListActivity;
-import com.lbelivea.uvm2.LoggedInUser;
 import com.lbelivea.uvm2.MainActivity;
 import com.lbelivea.uvm2.MyCourseListActivity;
 
@@ -72,14 +71,13 @@ public class CourseContent {
     /**
      * An array of all courses.
      */
-    public static List<Course> COURSES = new ArrayList<Course>();
-    public static List<Course> MY_COURSES = new ArrayList<Course>();
+    public static List<Course> COURSES = new ArrayList<>();
+    public static List<Course> MY_COURSES = new ArrayList<>();
 
     /**
      * A map of all courses, by CRN.
      */
-    public static Map<String, Course> COURSE_MAP = new HashMap<String, Course>();
-    public static Map<String, Course> TEMP_COURSE_MAP = new HashMap<String, Course>();
+    public static Map<String, Course> COURSE_MAP = new HashMap<>();
 
     public static void addItem(Course course) {
         COURSES.add(course);
@@ -166,7 +164,7 @@ public class CourseContent {
         }
 
         public Course() {
-            // hi there :) hey :) howdy :) hi :) heyyyyy :)
+            // hi there :) hey :) howdy :) hi :) heyyyyy :) howdy :)
         }
 
         @Override

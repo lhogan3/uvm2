@@ -3,26 +3,24 @@ package com.lbelivea.uvm2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.core.app.NavUtils;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.MenuItem;
+import com.lhogan.uvm2.CourseContent;
 import com.lhogan.uvm2.CourseContent.Course;
-import com.lhogan.uvm2.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,9 +97,11 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
     @Override
     public boolean onQueryTextChange(String query){
         if(query.equals("")){
+            //on empty query, get the full list
             mAdapter.refresh();
             return true;
         }
+        //filter to the query and get the new filtered list
         final List<Course> filteredCourseList = filter(query);
         mAdapter.clear();
         mAdapter.add(filteredCourseList);
@@ -111,10 +111,13 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
 
     @Override
     public boolean onQueryTextSubmit(String query){
+        //submitting the search query does nothing;
+        //it performs the search whenever the text is changed
         return false;
     }
 
     private static List<Course> filter(String query){
+        //split the query into multiple keywords to search separately
         String[] queries = query.toLowerCase().split(" ");
 
         final List<Course> allCourses = CourseContent.COURSES;
@@ -122,6 +125,7 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
 
         boolean add;
 
+        //add all courses that match EVERY keyword
         for(Course course : allCourses){
             add = true;
             final String text = course.getData().toLowerCase();
