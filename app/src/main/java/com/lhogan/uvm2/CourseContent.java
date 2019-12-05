@@ -3,7 +3,10 @@ package com.lhogan.uvm2;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.lbelivea.uvm2.CourseListActivity;
 import com.lbelivea.uvm2.LoggedInUser;
+import com.lbelivea.uvm2.MainActivity;
+import com.lbelivea.uvm2.MyCourseListActivity;
 
 import java.io.IOException;
 import java.net.URL;
@@ -48,7 +51,11 @@ public class CourseContent {
 
                 }
 
-                findUserCourses();
+                if (MainActivity.firstTimeThrough) {
+                    findUserCourses();
+
+                    MainActivity.firstTimeThrough = false;
+                }
             } catch (IOException e) {
                 Log.d("ERROR", "doInBackground: IO ERROR");
             }
@@ -57,7 +64,9 @@ public class CourseContent {
 
         @Override
         protected void onPostExecute(CourseContent.Course lastCourse) {
-            resetAdapter();
+            if (CourseListActivity.getmAdapter() != null || MyCourseListActivity.getmAdapter() != null) {
+                resetAdapter();
+            }
         }
     }
     /**

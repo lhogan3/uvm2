@@ -46,6 +46,10 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
 
     public static boolean isMyCourseList = false;
 
+    public static SimpleItemRecyclerViewAdapter getmAdapter(){
+        return mAdapter;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +60,6 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
         toolbar.setTitle(getTitle());
 
         Log.d("INFO", "static initializer: ---------- course list");
-        new CourseContent.Scraping().execute();
-
 
         mAdapter = new SimpleItemRecyclerViewAdapter(this, mTwoPane);
 
@@ -241,7 +243,9 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
         }
 
         public static void resetAdapter(){
-            mAdapter.refresh();
+            if (mAdapter != null) {
+                mAdapter.refresh();
+            }
         }
         @Override
         public int getItemCount() {

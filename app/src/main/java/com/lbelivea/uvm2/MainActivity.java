@@ -7,7 +7,10 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import com.lhogan.uvm2.CourseContent;
+
 public class MainActivity extends AppCompatActivity {
+    public static boolean firstTimeThrough = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        new CourseContent.Scraping().execute();
 
         final Button buttonCourseList = findViewById(R.id.button_course_list);
         buttonCourseList.setOnClickListener(new View.OnClickListener(){

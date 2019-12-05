@@ -12,8 +12,6 @@ import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.lhogan.uvm2.CourseContent;
 
 import android.util.Log;
@@ -28,7 +26,6 @@ import java.util.List;
 
 import android.view.MenuItem;
 import com.lhogan.uvm2.CourseContent.Course;
-import com.lhogan.uvm2.*;
 
 /**
  * An activity representing a list of Items. This activity
@@ -47,6 +44,10 @@ public class MyCourseListActivity extends AppCompatActivity implements SearchVie
     private boolean mTwoPane;
     private static MyCourseListActivity.SimpleItemRecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
+
+    public static MyCourseListActivity.SimpleItemRecyclerViewAdapter getmAdapter(){
+        return mAdapter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,7 +249,9 @@ public class MyCourseListActivity extends AppCompatActivity implements SearchVie
         }
 
         public static void resetAdapter(){
-            mAdapter.refresh();
+            if (mAdapter != null) {
+                mAdapter.refresh();
+            }
         }
         @Override
         public int getItemCount() {
