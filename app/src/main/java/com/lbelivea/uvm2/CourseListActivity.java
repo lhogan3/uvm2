@@ -1,9 +1,9 @@
 package com.lbelivea.uvm2;
 
+//Importing necessary libraries
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,40 +25,34 @@ import com.lhogan.uvm2.CourseContent.Course;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * An activity representing a list of Courses. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link CourseDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- */
+//Defining the CourseListActivity
 public class CourseListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
+
+    //Defining the fields of the class
     private boolean mTwoPane;
     private static SimpleItemRecyclerViewAdapter mAdapter;
     private RecyclerView mRecyclerView;
-
     public static boolean isMyCourseList = false;
 
+    //Getting the mAdapter
     public static SimpleItemRecyclerViewAdapter getmAdapter(){
         return mAdapter;
     }
 
+    //When the activity is created
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Set the view.
         setContentView(R.layout.activity_course_list);
 
+        //Creating the toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        Log.d("INFO", "static initializer: ---------- course list");
-
+        //Set the mAdapter
         mAdapter = new SimpleItemRecyclerViewAdapter(this, mTwoPane);
 
         // Show the Up button in the action bar.
@@ -67,14 +61,12 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        //If the app is being run on a tablet
         if (findViewById(R.id.course_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
             mTwoPane = true;
         }
 
+        //Setting up the Recycler View
         mRecyclerView = findViewById(R.id.course_list);
         assert mRecyclerView != null;
         setupRecyclerView(mRecyclerView);
@@ -82,6 +74,7 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
 
     }
 
+    //Creating view
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_list, menu);
@@ -94,6 +87,7 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
 
     }
 
+    //Filter for searching for a course.
     @Override
     public boolean onQueryTextChange(String query){
         if(query.equals("")){
@@ -109,6 +103,7 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
         return true;
     }
 
+    //Have to override the the method so can extend the class.
     @Override
     public boolean onQueryTextSubmit(String query){
         //submitting the search query does nothing;
@@ -116,6 +111,7 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
         return false;
     }
 
+    //Filtering courses.
     private static List<Course> filter(String query){
         //split the query into multiple keywords to search separately
         String[] queries = query.toLowerCase().split(" ");
@@ -141,38 +137,40 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
         return filteredCourseList;
     }
 
+    //
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            // This ID represents the Home or Up button. In the case of this
-            // activity, the Up button is shown. Use NavUtils to allow users
-            // to navigate up one level in the application structure. For
-            // more details, see the Navigation pattern on Android Design:
-            //
-            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-            //
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    //Setting up the Recycler View
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+        //Setting the adapter
         recyclerView.setAdapter(mAdapter);
     }
 
-    public static class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+    //Defining the SimpleItemRecyclerViewAdapter class
+    public static class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
+        //Defining the fields for this class.
         private final CourseListActivity mParentActivity;
         private final List<CourseContent.Course> mValues = new ArrayList<>();
         private final boolean mTwoPane;
+
+        //If an item is clicked in the list.
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //Create a course with the views.getTag()
                 Course course = (Course) view.getTag();
 
+                //If the app is being run on a tablet.
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
                     arguments.putString(CourseDetailFragment.ARG_ITEM_ID, course.CRN);
@@ -181,38 +179,46 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
                     mParentActivity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.course_detail_container, fragment)
                             .commit();
-                } else {
+                }
+                //if it is being run on a phone.
+                else {
+                    //Create a new intent, pass in the CRN of the class that was clicked on,
+                    //and then switch to the CourseDetailActivity.
                     Context context = view.getContext();
                     Intent intent = new Intent(context, CourseDetailActivity.class);
                     intent.putExtra(CourseDetailFragment.ARG_ITEM_ID, course.CRN);
-
                     context.startActivity(intent);
                 }
             }
         };
 
+        //Constructor
         SimpleItemRecyclerViewAdapter(CourseListActivity parent,
                                       boolean twoPane) {
             mParentActivity = parent;
             mTwoPane = twoPane;
         }
 
+        //Adding
         public void add(List<Course> courses){
             mValues.addAll(courses);
             notifyDataSetChanged();
         }
 
+        //Clearing
         public void clear(){
             mValues.clear();
             notifyDataSetChanged();
         }
 
+        //Refreshing
         public void refresh(){
             mValues.clear();
             mValues.addAll(CourseContent.COURSES);
             notifyDataSetChanged();
         }
 
+        //Creating a ViewHolder
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
@@ -220,6 +226,7 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
             return new ViewHolder(view);
         }
 
+        //Setting values for a ViewHolder
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mSubjectView.setText(mValues.get(position).subject);
@@ -231,21 +238,26 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
             holder.itemView.setOnClickListener(mOnClickListener);
         }
 
+        //Resetting the adapter.
         public static void resetAdapter(){
             if (mAdapter != null) {
                 mAdapter.refresh();
             }
         }
+
+        //Returns the number of items in the list.
         @Override
         public int getItemCount() {
             return mValues.size();
         }
 
+        //Defining the ViewHolder class
         class ViewHolder extends RecyclerView.ViewHolder {
             final TextView mSubjectView;
             final TextView mNumberView;
             final TextView mNameView;
 
+            //Constructor
             ViewHolder(View view) {
                 super(view);
                 mSubjectView = view.findViewById(R.id.subject);
